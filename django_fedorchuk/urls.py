@@ -25,6 +25,7 @@ urlpatterns = [
     path('generate-students/' , sviews.generate_students),
     path('list-groups/' , gviews.list_groups),
     path('list-teachers/' , tviews.list_teachers),
+    path('filter-teachers/' , tviews.filter_teachers),
     path('admin/', admin.site.urls)
               ]
   
