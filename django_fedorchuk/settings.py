@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'students.apps.StudentsConfig',
     'teachers.apps.TeachersConfig',
     'group.apps.GroupConfig'
-  ]
+]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
