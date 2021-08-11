@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
+from .froms import TeacherFormFromModel
 from .models import Teacher
 
 
@@ -19,3 +20,14 @@ def filter_teachers(request):
         return HttpResponse('No such teacher')
     else:
         return HttpResponse(output)
+
+
+def create_teacher(request):
+    if request.method == 'POST':
+        form = TeacherFormFromModel(request.POST)
+        if form.is_valid():
+            Teacher.objects.create(**form.cleaned_data)
+            return HttpResponse('Teacher created!')
+    else:
+        form = TeacherFormFromModel
+    return render(request, 'create_teacher.html', {'form': form})

@@ -6,7 +6,9 @@ from django.shortcuts import render
 
 from faker import Faker
 
+from .forms import StudentForm
 from .models import Student
+
 
 f = Faker()
 
@@ -37,3 +39,14 @@ def generate_students(request):
     else:
         return HttpResponse(str(form.errors))
     return HttpResponse(output)
+
+
+def create_student(request):
+    if request.method == 'POST':
+        form = StudentForm(request.POST)
+        if form.is_valid():
+            Student.objects.create(**form.cleaned_data)
+            return HttpResponse('Student created!')
+    else:
+        form = StudentForm()
+    return render(request, 'create_student.html', {'form': form})
