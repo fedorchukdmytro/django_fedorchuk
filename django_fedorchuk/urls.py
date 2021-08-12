@@ -26,7 +26,7 @@ urlpatterns = [
     path('list-students/', sviews.list_students),
     path('generate-student/', sviews.generate_student),
     path('generate-students/', sviews.generate_students),
-    path('create-student/', sviews.create_student),
+    path('create-student', sviews.create_student),
     path('create-teacher/', tviews.create_teacher),
     path('create-group/', gviews.create_group),
     path('list-groups/', gviews.list_groups),
