@@ -1,12 +1,12 @@
 import random
 
 from django import forms
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-
+from django.urls import reverse
 from faker import Faker
 
-from .forms import StudentForm
+from .forms import StudentFormFromModel
 from .models import Student
 
 
@@ -43,10 +43,23 @@ def generate_students(request):
 
 def create_student(request):
     if request.method == 'POST':
-        form = StudentForm(request.POST)
+        form = StudentFormFromModel(request.POST)
         if form.is_valid():
             Student.objects.create(**form.cleaned_data)
             return HttpResponse('Student created!')
     else:
-        form = StudentForm()
+        form = StudentFormFromModel()
     return render(request, 'create_student.html', {'form': form})
+
+
+def edit_student(request, student_id):
+    if request.method == 'POST':
+        form = StudentFormFromModel(request.POST)
+        if form.is_valid():
+            Student.objects.update_or_create(defaults=form.cleaned_data, id=student_id)
+            return HttpResponseRedirect(reverse('list-students'))
+    else:
+        student = Student.objects.filter(id=student_id).first()
+        form = StudentFormFromModel(instance=student)
+
+    return render(request, 'edit_student.html', {'form': form, 'student_id': student_id})
