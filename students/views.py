@@ -15,8 +15,8 @@ f = Faker()
 
 def list_students(request):
     student_list = Student.objects.all()
-    output = [f" {student.id} {student.last_name} {student.first_name},{student.age};<br/>" for student in student_list]
-    return HttpResponse(output)
+    # output = [f" {student.id} {student.last_name} {student.first_name},{student.age};<br/>" for student in student_list]
+    return render(request, 'list_students.html', {'students': student_list})
 
 
 def generate_student(request):
@@ -31,9 +31,12 @@ def generate_students(request):
     form = CountForm(request.GET)
     if form.is_valid():
         count = form.cleaned_data['count']
-        studentList = [
-            Student.objects.create(first_name=f.first_name(), last_name=f.last_name(), age=random.randint(18, 100))
-            for _ in range(count)]
+        studentList = []
+        for _ in range(count):
+            studentList.append(Student(first_name=f.first_name(), 
+                                       last_name=f.last_name(), 
+                                       age=random.randint(18, 100)))
+        Student.objects.bulk_create(studentList)
         output = [
             f"{student.id} {student.first_name} {student.last_name} {student.age};<br/>" for student in studentList]
     else:
@@ -63,3 +66,9 @@ def edit_student(request, student_id):
         form = StudentFormFromModel(instance=student)
 
     return render(request, 'edit_student.html', {'form': form, 'student_id': student_id})
+
+def delete_student(request, student_id):
+    badstudent= Student.objects.filter(id=student_id)
+    badstudent.delete()
+    return HttpResponseRedirect(reverse('list-students'))
+  
