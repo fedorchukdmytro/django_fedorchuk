@@ -16,14 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from group import views as gviews
 
 
 
 urlpatterns = [
     path('', include('students.urls')),
     path('', include('teachers.urls')),
-    path('create-group/', gviews.create_group),
-    path('list-groups/', gviews.list_groups, name='list-groups'),
+    path('', include('group.urls')),
     path('admin/', admin.site.urls)
 ]

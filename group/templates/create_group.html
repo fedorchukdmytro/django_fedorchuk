@@ -3,13 +3,13 @@
     {{ block.super }}
         <style type="text/css">
             body {
-                background-color: bisque;
+                background-color: rgb(107, 24, 42);
             }
         </style>
 {%endblock%}
 {% block content %}
     <h1>Group creation form</h1>
-        <form action="/create-group/" method="post">
+        <form action="{%url 'create-group' %}" method="post">
             {% csrf_token %}
             <table>
                 {{form.as_table }}
@@ -17,3 +17,12 @@
             <input type="submit" value="Submit">
         </form>
 {% endblock %}
+
+
+
+
+    
+
+
+
+    

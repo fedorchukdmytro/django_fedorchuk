@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    
+    
     {% block head %}
         <title>Fedorchuk Django Project</title>
         <style type="text/css">
@@ -9,8 +11,41 @@
             }
         </style>
     {% endblock %}
+
+
+
 </head>
 <body>
-    <div id="content">{% block content %}{% endblock %}</div>
+    
 </body>
+
+
+<sidebar>
+    
+    
+    
+    
+    <div id="content">{% block content %}
+        
+        
+        <style type="css">
+    sidebar {
+        font-family: Geneva, Arial, Helvetica, sans-serif;
+    width: 300px;
+    }
+        
+
+        </style>
+
+
+        
+        {% endblock %}</div>
+
+
+
+
+    
+</sidebar>
+
+
 </html>

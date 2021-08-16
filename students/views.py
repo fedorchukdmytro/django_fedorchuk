@@ -12,7 +12,7 @@ from .models import Student
 
 f = Faker()
 
-
+ 
 def list_students(request):
     student_list = Student.objects.all()
     # output = [f" {student.id} {student.last_name} {student.first_name},{student.age};<br/>" for student in student_list]
@@ -66,6 +66,7 @@ def edit_student(request, student_id):
         form = StudentFormFromModel(instance=student)
 
     return render(request, 'edit_student.html', {'form': form, 'student_id': student_id})
+
 
 def delete_student(request, student_id):
     badstudent= Student.objects.filter(id=student_id)

@@ -2,17 +2,19 @@
 {% block head %}
     {{ block.super }}
     <style type="text/css">
-        body { background-color: darkseagreen; }
+        body { background-color: rgb(48, 71, 48); }
     </style>
 {% endblock %}
 {% block content %}
-    <h1>Groups List</h1>
+{{ block.super }}
+
+<h1>Groups List</h1>
     <ul>
         {% for group in groups %}
         <li>
-            {{ group.id|safe }}. {{ group.descipline|safe }} {{ group.hours_to_take|safe }}, 
+            {{ group.id|safe }}. {{ group.descipline|safe }} {{ group.hours_to_take|safe }} 
             <a href="{% url 'edit-group' group.id %}">Edit</a> 
-             <a href="{% url 'delete-group' group.id %}">Delete</a>
+            <a href="{% url 'delete-group' group.id %}">Delete</a>
         </li>
         {% endfor %}
     </ul>
