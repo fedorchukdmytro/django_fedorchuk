@@ -4,6 +4,7 @@ from django import forms
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+
 from faker import Faker
 
 from .forms import StudentFormFromModel
@@ -12,10 +13,9 @@ from .models import Student
 
 f = Faker()
 
- 
+
 def list_students(request):
     student_list = Student.objects.all()
-    # output = [f" {student.id} {student.last_name} {student.first_name},{student.age};<br/>" for student in student_list]
     return render(request, 'list_students.html', {'students': student_list})
 
 
@@ -33,8 +33,8 @@ def generate_students(request):
         count = form.cleaned_data['count']
         studentList = []
         for _ in range(count):
-            studentList.append(Student(first_name=f.first_name(), 
-                                       last_name=f.last_name(), 
+            studentList.append(Student(first_name=f.first_name(),
+                                       last_name=f.last_name(),
                                        age=random.randint(18, 100)))
         Student.objects.bulk_create(studentList)
         output = [
@@ -49,7 +49,7 @@ def create_student(request):
         form = StudentFormFromModel(request.POST)
         if form.is_valid():
             Student.objects.create(**form.cleaned_data)
-            return HttpResponse('Student created!')
+            return HttpResponseRedirect(reverse('list-students'))
     else:
         form = StudentFormFromModel()
     return render(request, 'create_student.html', {'form': form})
@@ -69,7 +69,6 @@ def edit_student(request, student_id):
 
 
 def delete_student(request, student_id):
-    badstudent= Student.objects.filter(id=student_id)
+    badstudent = Student.objects.filter(id=student_id)
     badstudent.delete()
     return HttpResponseRedirect(reverse('list-students'))
-  

@@ -1,14 +1,13 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse
+
 from .froms import TeacherFormFromModel
 from .models import Teacher
 
 
 def list_teachers(request):
     teachers_list = Teacher.objects.all()
-    output = [
-        f"{teacher.id}, {teacher.last_name} {teacher.first_name}, {teacher.age};<br/>" for teacher in teachers_list]
     return render(request, 'list_teachers.html', {'teachers': teachers_list})
 
 
@@ -45,8 +44,8 @@ def edit_teacher(request, teacher_id):
 
     return render(request, 'edit_teacher.html', {'form': form, 'teacher_id': teacher_id})
 
+
 def delete_teacher(request, teacher_id):
-    teacher= Teacher.objects.filter(id=teacher_id)
+    teacher = Teacher.objects.filter(id=teacher_id)
     teacher.delete()
     return HttpResponseRedirect(reverse('list-teachers'))
-  
