@@ -56,6 +56,7 @@ def create_student(request):
 
 
 def edit_student(request, student_id):
+    breakpoint()
     if request.method == 'POST':
         form = StudentFormFromModel(request.POST)
         if form.is_valid():

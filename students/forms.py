@@ -1,15 +1,17 @@
+import re
+
 from django import forms
 
 from .models import Student
 
 
-# class StudentForm(forms.Form):
-#     first_name = forms.CharField(label='Student\' firstname', required=True)
-#     last_name = forms.CharField(label='Student\'s lastname', required=True)
-#     age = forms.IntegerField(label='Student\'s age',)
-
-
 class StudentFormFromModel(forms.ModelForm):
     class Meta:
         model = Student
-        fields = ['first_name', 'last_name', 'age']
+        fields = ['first_name', 'last_name', 'age', 'phone']
+
+    def clean(self):
+        cleaned_data = super().clean()
+        t = cleaned_data.get('phone')
+        if re.search('[a-zA-Z]+', t) is not None:
+            raise forms.ValidationError('Please remove letter from phone number.')
