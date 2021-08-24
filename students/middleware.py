@@ -11,7 +11,7 @@ class LoggerMiddleware:
     def __call__(self, request):
         _t = time.time()
         response = self.get_response(request)
-        execution_time = int((time.time() - _t) * 1000)
+        execution_time = (time.time() - _t)
         if request.path == "/admin/":
             Logger.objects.create(method=request.method, path=request.path, execution_time=execution_time)
 
