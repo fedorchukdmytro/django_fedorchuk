@@ -18,7 +18,7 @@ class StudentFormFromModel(forms.ModelForm):
             raise forms.ValidationError('Please remove letter from phone number.')
 
 
-class ContactUS(forms.Form) 
-    title = form.CharField(max_lenth=100)
-    message = form.CharField(ma)
-    email_from)
+class ContactUS(forms.Form): 
+    title = forms.CharField(max_lenth=100, required=True)
+    message = forms.CharField(max_length=100, required=True)
+    email_from = forms.EmailField(required=True)
