@@ -10,6 +10,8 @@ from faker import Faker
 from .forms import StudentFormFromModel
 from .models import Student
 from .forms import GenerateRandomUserForm
+from .forms import ContactUS
+
 from .tasks import st_generate
 f = Faker()
 
@@ -60,7 +62,6 @@ def create_student(request):
 
 
 def edit_student(request, student_id):
-    breakpoint()
     if request.method == 'POST':
         form = StudentFormFromModel(request.POST)
         if form.is_valid():
@@ -90,3 +91,16 @@ def generate(request):
     else:
         form = GenerateRandomUserForm()
     return render(request, 'generate.html', {'form': form})
+
+def ContactUs(request):
+    if request.method == 'POST':
+        form = ContactUS(request.POST)
+        # if form.is_valid():
+        #     total = form.cleaned_data.get('total')
+        #     st_generate.delay(total)
+        #     messages.success(request, 'We are generating your random users! Wait a moment and refresh this page.')
+        #     return redirect('list-students')
+    else:
+        form = ContactUS()
+    return render(request, 'ContactUS.html', {'form': form})
+    

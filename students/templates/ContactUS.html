@@ -20,8 +20,15 @@
             {% endfor %}
     </ul>
     {% endif %}
-    <div id="content">{% block content %} <a href="{% url 'generate' %}">Generate</a>
-        <a href="{% url 'contactus' %}">Contuct US</a> {% endblock %}</div>
+    <div id="content">{% block content %}
+        <h1>Student generating form</h1>
+        <form action="{% url 'generate' %}" method="post">
+            {% csrf_token %}
+            <table>
+                {{form.as_table }}
+            </table>
+            <input type="submit" value="Submit">
+        </form> {% endblock %}</div>
 </body>
 
 </html>
