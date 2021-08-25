@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-
+# from celery import Celery
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -27,7 +27,17 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+CELERY_BROKER_URL = 'pyamqp://guest@localhost//'
 
+from celery.schedules import crontab 
+
+CELERY_BEAT_SCHEDULE = {
+    'beat': {
+        'task': 'students.task.beat',
+        'schedule': 10,
+        #
+    }
+}
 # Application definition
 
 INSTALLED_APPS = [
