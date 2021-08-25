@@ -2,16 +2,20 @@ import random
 
 from django import forms
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.urls import reverse
-
+from django.contrib import messages
 from faker import Faker
 
 from .forms import StudentFormFromModel
 from .models import Student
-
-
+from .forms import GenerateRandomUserForm
+from .tasks import st_generate
 f = Faker()
+
+def index(request):
+    
+    return render(request, 'index.html')
 
 
 def list_students(request):
@@ -73,3 +77,16 @@ def delete_student(request, student_id):
     badstudent = Student.objects.filter(id=student_id)
     badstudent.delete()
     return HttpResponseRedirect(reverse('list-students'))
+
+
+def generate(request):
+    if request.method == 'POST':
+        form = GenerateRandomUserForm(request.POST)
+        if form.is_valid():
+            total = form.cleaned_data.get('total')
+            st_generate.delay(total)
+            messages.success(request, 'We are generating your random users! Wait a moment and refresh this page.')
+            return redirect('list-students')
+    else:
+        form = GenerateRandomUserForm()
+    return render(request, 'generate.html', {'form': form})

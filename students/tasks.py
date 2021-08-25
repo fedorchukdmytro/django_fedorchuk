@@ -6,24 +6,22 @@ from faker import Faker
 from django.core.mail import send_mail
 
 from .models import Student
-
+from django.utils.crypto import get_random_string
 
 fake = Faker()
 
 
 @shared_task
-def create_random_students(total):
-    result = []
-
-    for _ in range(total):
-        result.append(Student(
-            first_name=fake.first_name(),
-            last_name=fake.last_name(),
-            age=randrange(1,99)
-        ))
-    Student.objects.bulk_create(result)
-
-    return '{} random students created with success!'.format(total)
+def st_generate(total):
+    for i in range(total):
+        sleep(10)
+        first_name = 'user_{}'.format(get_random_string(10))
+        last_name = 'user_{}'.format(get_random_string(10))
+        age = randrange(20,60)
+        Student.objects.create(first_name=first_name, last_name=last_name, age=age)
+    return '{} random users created with success!'.format(total)
+    
+    
 
 
 @shared_task
