@@ -1,4 +1,5 @@
 import re
+from typing_extensions import Required
 
 from django import forms
 from django.forms.fields import CharField
@@ -19,6 +20,6 @@ class StudentFormFromModel(forms.ModelForm):
 
 
 class ContactUS(forms.Form): 
-    title = forms.CharField(max_lenth=100, required=True)
-    message = forms.CharField(max_length=100, required=True)
-    email_from = forms.EmailField(required=True)
+    title = forms.CharField(max_lenth=100, label="Тема Вашего обращения", required=True)
+    message = forms.CharField(max_length=100, label="Ваше сообщение", required=True)
+    email_from = forms.EmailField(required=True, label="Введите Ваш адрес электронной почты", required=True)
