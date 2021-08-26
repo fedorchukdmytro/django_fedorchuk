@@ -13,18 +13,26 @@ class StudentFormFromModel(forms.ModelForm):
         fields = ['first_name', 'last_name', 'age', 'phone']
 
     def clean(self):
-        cleaned_data = super().clean()
+        breakpoint()
+        # cleaned_data = super().clean()
+        cleaned_data = forms.Field.clean(self)
         t = cleaned_data.get('phone')
         if re.search('[a-zA-Z]+', t) is not None:
             raise forms.ValidationError('Please remove letter from phone number.')
+
+
 
 class ContactUS(forms.Form): 
     title = forms.CharField(label="Тема Вашего обращения", required=True)
     message = forms.CharField(label="Ваше сообщение", required=True)
     email_from = forms.EmailField(label="Введите Ваш адрес электронной почты")
 
+
+
 from django import forms
 from django.core.validators import MinValueValidator, MaxValueValidator
+
+
 
 class GenerateRandomUserForm(forms.Form):
     total = forms.IntegerField(

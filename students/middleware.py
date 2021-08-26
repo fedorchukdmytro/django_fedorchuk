@@ -12,7 +12,7 @@ class LoggerMiddleware:
         _t = time.time()
         response = self.get_response(request)
         execution_time = (time.time() - _t)
-        if request.path == "/admin/":
+        if "/admin/" in request.path:
             Logger.objects.create(method=request.method, path=request.path, execution_time=execution_time)
 
         return response

@@ -12,7 +12,9 @@ from .models import Student
 from .forms import GenerateRandomUserForm
 from .forms import ContactUS
 
-from .tasks import st_generate
+
+from .tasks import send_email_to, st_generate
+
 f = Faker()
 
 def index(request):
@@ -84,7 +86,7 @@ def generate(request):
     if request.method == 'POST':
         form = GenerateRandomUserForm(request.POST)
         if form.is_valid():
-            total = form.cleaned_data.get('total')
+            total = form.cleaned_data['total']
             st_generate.delay(total)
             messages.success(request, 'We are generating your random users! Wait a moment and refresh this page.')
             return redirect('list-students')
@@ -95,11 +97,13 @@ def generate(request):
 def ContactUs(request):
     if request.method == 'POST':
         form = ContactUS(request.POST)
-        # if form.is_valid():
-        #     total = form.cleaned_data.get('total')
-        #     st_generate.delay(total)
-        #     messages.success(request, 'We are generating your random users! Wait a moment and refresh this page.')
-        #     return redirect('list-students')
+        if form.is_valid():
+            title = form.cleaned_data['title']
+            message = form.cleaned_data['message']
+            email_from = form.cleaned_data['email_from']
+            send_email_to.delay(title, message, email_from)      
+        return HttpResponse('Mail sent')
+    
     else:
         form = ContactUS()
     return render(request, 'ContactUS.html', {'form': form})

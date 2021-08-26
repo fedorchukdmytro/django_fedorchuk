@@ -32,10 +32,10 @@ CELERY_BROKER_URL = 'pyamqp://guest@localhost//'
 from celery.schedules import crontab 
 
 CELERY_BEAT_SCHEDULE = {
-    'beat': {
-        'task': 'students.task.beat',
-        'schedule': 10,
-        #
+    'beat_log': {
+        'task': 'students.tasks.beat_log',
+        'schedule': crontab()
+        
     }
 }
 # Application definition
@@ -119,13 +119,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Kiev'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -137,3 +137,13 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.ukr.net'
+EMAIL_USE_SSL = True
+EMAIL_USE_TLS = False
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'fedorchuk.dmytro@ukr.net'
+EMAIL_HOST_PASSWORD = 'RXNJtIz2H5GzeIBy'
