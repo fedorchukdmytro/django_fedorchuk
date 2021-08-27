@@ -21,7 +21,7 @@
     </ul>
     {% endif %}
     <div id="content">{% block content %}
-        <h1>Student generating form</h1>
+        <h1>Student creating form</h1>
         <form action="{% url 'contactus' %}" method="post">
             {% csrf_token %}
             <table>

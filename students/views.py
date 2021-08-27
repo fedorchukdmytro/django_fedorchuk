@@ -121,7 +121,7 @@ def ContactUs(request):
             message = form.cleaned_data['message']
             email_from = form.cleaned_data['email_from']
             send_email_to.delay(title, message, email_from)
-        return HttpResponse('Mail sent')
+        return HttpResponse('Mail Sent')
 
     else:
         form = ContactUS()
