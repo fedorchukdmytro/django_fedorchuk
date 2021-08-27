@@ -20,9 +20,19 @@
             {% endfor %}
     </ul>
     {% endif %}
-    <div id="content">{% block content %} <a href="{% url 'generate' %}">Generate</a>
-        <a href="{% url 'contactus' %}">Contuct US</a>
-        <a href="{% url 'create-student' %}">Create MotherFucker</a> {% endblock %}
+    <div id="content">{% block content %}
+
+        <a href="{% url 'generate' %}">Generate a number of fake students with CELERY</a></br>
+        <a href="{% url 'contactus' %}">Contuct US</a></br>
+        <a href="{% url 'create-student' %}">Create one student manualy</a></br>
+
+        <a href="{% url 'generate-student' %}">Generate one fake student</a></br>
+        <a href="{% url 'generate-students' %}">Generate a number of students with query count=number</a></br>
+        <a href="{% url 'generate-now' %}">Generate a number of fake student now</a></br>
+        <a href="{% url 'list-students' %}">Delete MotherFuckerS </a></br>
+        <a href="{% url 'list-students' %}">Edit MotherFuckerS </a></br>
+
+        {% endblock %}
 
 
     </div>

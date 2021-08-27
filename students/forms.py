@@ -13,9 +13,9 @@ class StudentFormFromModel(forms.ModelForm):
         fields = ['first_name', 'last_name', 'age', 'phone']
 
     def clean(self):
-        breakpoint()
-        # cleaned_data = super().clean()
-        cleaned_data = forms.Field.clean(self)
+        # breakpoint()
+        cleaned_data = super().clean()
+        # cleaned_data = forms.Field.clean(self)
         t = cleaned_data.get('phone')
         if re.search('[a-zA-Z]+', t) is not None:
             raise forms.ValidationError('Please remove letter from phone number.')
@@ -41,3 +41,8 @@ class GenerateRandomUserForm(forms.Form):
             MaxValueValidator(500)
         ]
     )
+
+class GenerateNow(forms.Form):
+    count = forms.IntegerField(
+        label='введитк число сколько сейчас сгенерить',min_value=5, max_value= 10)
+    

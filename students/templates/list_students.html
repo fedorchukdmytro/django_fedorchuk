@@ -1,19 +1,18 @@
-{% extends "parent.html" %}
-{% block head %}
-    {{ block.super }}
-    <style type="text/css">
-        body { background-color: aquamarine; }
-    </style>
-{% endblock %}
-{% block content %}
-    <h1>Student List</h1>
-    <ul>
-        {% for student in students  %}
-        <li>
-            {{ student.id|safe }}. {{ student.first_name|safe }} {{ student.last_name|safe }}, age {{student.age|safe }} <span>..................</span>{{student.phone|safe}}
-            <a href="{% url 'edit-student' student.id %}">Edit</a>
-            <a href="{% url 'delete-student' student.id %}">Delete</a>
-        </li>
-        {% endfor %}
-    </ul>
-{% endblock %}
+{% extends "parent.html" %} {% block head %} {{ block.super }}
+<style type="text/css">
+    body {
+        background-color: aquamarine;
+    }
+</style>
+{% endblock %} {% block content %}
+<h1>Student List</h1>
+<ul>
+    {% for student in students %}
+    <li>
+        {{ student.id|safe }}. {{ student.first_name|safe }} {{ student.last_name|safe }}, age {{student.age|safe }} <span>..................</span>{{student.phone|safe}}
+        <a href="{% url 'edit-student' student.id %}">Edit</a>
+        <a href="{% url 'delete-student' student.id %}">Delete</a>
+    </li>
+    {% endfor %}
+</ul>
+<a href="{% url 'index' %}">BACK TO MAIN PAGE</a> {% endblock %}

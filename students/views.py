@@ -11,7 +11,7 @@ from .forms import StudentFormFromModel
 from .models import Student
 from .forms import GenerateRandomUserForm
 from .forms import ContactUS
-
+from .forms import GenerateNow
 
 from .tasks import send_email_to, st_generate
 
@@ -52,12 +52,32 @@ def generate_students(request):
     return HttpResponse(output)
 
 
+def generate_now(request):
+    if request.method == 'POST':
+        # breakpoint()
+        form = GenerateNow(request.POST)
+        if form.is_valid():
+            count = form.cleaned_data['count']
+            studentList = []
+            for _ in range(count):
+                studentList.append(Student(first_name=f.first_name(),
+                                            last_name=f.last_name(),
+                                            age=random.randint(18, 100)))
+            Student.objects.bulk_create(studentList)
+               
+            return redirect('list-students')
+    else:
+        form = GenerateNow()
+    return render(request, 'generate_now.html', {'form': form})
+        
+
 def create_student(request):
     if request.method == 'POST':
         form = StudentFormFromModel(request.POST)
         if form.is_valid():
-            Student.objects.create(**form.cleaned_data)
-            return HttpResponseRedirect(reverse('list-students'))
+            student = Student.objects.create(**form.cleaned_data)
+            messages.success(request, 'One student created successfuly  {}'.format(student))
+            return redirect('list-students')
     else:
         form = StudentFormFromModel()
     return render(request, 'create_student.html', {'form': form})
