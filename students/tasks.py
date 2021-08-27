@@ -30,7 +30,7 @@ def st_generate(total):
 
 @shared_task
 def send_email_to(title, message, email_from):
-    send_mail(title, message, 'fedorchuk.dmytro@ukr.net', ['fedorchuk.dmytro@ukr.net','vitalik1996@gmail.com', email_from])
+    send_mail(title, message, 'fedorchuk.dmytro@ukr.net', ['fedorchuk.dmytro@ukr.net', 'vitalik1996@gmail.com', email_from])
     return ' sent!'
 
 
@@ -39,4 +39,3 @@ def beat_log():
     lst = Logger.objects.filter(created__lte=(datetime.now() - timedelta(days=7)))
     for entry in lst:
         entry.delete()
-        

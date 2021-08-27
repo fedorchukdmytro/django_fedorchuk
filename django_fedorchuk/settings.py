@@ -35,7 +35,7 @@ CELERY_BROKER_URL = 'pyamqp://guest@localhost//'
 CELERY_BEAT_SCHEDULE = {
     'beat_log': {
         'task': 'students.tasks.beat_log',
-        'schedule': crontab()
+        'schedule': crontab(30, 12)
     }
 }
 # Application definition
