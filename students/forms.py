@@ -17,8 +17,12 @@ class StudentFormFromModel(forms.ModelForm):
         cleaned_data = super().clean()
         # cleaned_data = forms.Field.clean(self)
         t = cleaned_data.get('phone')
-        if re.search('[a-zA-Z]+', t) is not None:
-            raise forms.ValidationError('Please remove letter from phone number.')
+        if t.isdigit() is not True:
+            raise forms.ValidationError('В номере должны быть только цифры.')
+        elif len(t) < 12:
+            raise forms.ValidationError('В номере должно быть от 12 до 15 цифр включительно .')
+        elif len(t) > 15:
+            raise forms.ValidationError('В номере должно быть от 12 до 15 цифр включительно.')
 
 
 class ContactUS(forms.Form):
