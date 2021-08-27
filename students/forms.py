@@ -1,7 +1,7 @@
 import re
 
-
 from django import forms
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.forms.fields import CharField
 
 from .models import Student
@@ -21,17 +21,10 @@ class StudentFormFromModel(forms.ModelForm):
             raise forms.ValidationError('Please remove letter from phone number.')
 
 
-
-class ContactUS(forms.Form): 
+class ContactUS(forms.Form):
     title = forms.CharField(label="Тема Вашего обращения", required=True)
     message = forms.CharField(label="Ваше сообщение", required=True)
     email_from = forms.EmailField(label="Введите Ваш адрес электронной почты")
-
-
-
-from django import forms
-from django.core.validators import MinValueValidator, MaxValueValidator
-
 
 
 class GenerateRandomUserForm(forms.Form):
@@ -42,7 +35,7 @@ class GenerateRandomUserForm(forms.Form):
         ]
     )
 
+
 class GenerateNow(forms.Form):
     count = forms.IntegerField(
-        label='введитк число сколько сейчас сгенерить',min_value=5, max_value= 10)
-    
+        label='введитк число сколько сейчас сгенерить', min_value=5, max_value=10)

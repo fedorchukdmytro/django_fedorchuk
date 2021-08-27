@@ -19,11 +19,3 @@ class Logger(models.Model):
 
     def __str__(self):
         return f"{self.method} {self.path} {self.execution_time}"
-
-# class ContactUS(models.Model): 
-#     title = models.CharField(max_length=100, required=True)
-#     message = models.CharField(max_lenth=500, required=True)
-#     email_from = models.EmailField(required=True)
-
-#     def __str__(self):
-#         return f"{self.title} {self.message} {self.email_from}"

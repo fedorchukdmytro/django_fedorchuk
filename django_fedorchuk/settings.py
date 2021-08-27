@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+
+from celery.schedules import crontab
 # from celery import Celery
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,13 +31,11 @@ ALLOWED_HOSTS = []
 
 CELERY_BROKER_URL = 'pyamqp://guest@localhost//'
 
-from celery.schedules import crontab 
 
 CELERY_BEAT_SCHEDULE = {
     'beat_log': {
         'task': 'students.tasks.beat_log',
         'schedule': crontab()
-        
     }
 }
 # Application definition
@@ -137,8 +137,6 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.ukr.net'

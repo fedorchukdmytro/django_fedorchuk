@@ -1,8 +1,8 @@
 
 from django.urls import path
 
-from .views import (create_student,
-                    ContactUs,
+from .views import (ContactUs,
+                    create_student,
                     delete_student,
                     edit_student,
                     generate,

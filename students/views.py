@@ -1,24 +1,24 @@
 import random
 
 from django import forms
+from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse
-from django.contrib import messages
+
 from faker import Faker
 
-from .forms import StudentFormFromModel
-from .models import Student
-from .forms import GenerateRandomUserForm
 from .forms import ContactUS
 from .forms import GenerateNow
-
+from .forms import GenerateRandomUserForm
+from .forms import StudentFormFromModel
+from .models import Student
 from .tasks import send_email_to, st_generate
 
 f = Faker()
 
+
 def index(request):
-    
     return render(request, 'index.html')
 
 
@@ -60,16 +60,14 @@ def generate_now(request):
             count = form.cleaned_data['count']
             studentList = []
             for _ in range(count):
-                studentList.append(Student(first_name=f.first_name(),
-                                            last_name=f.last_name(),
-                                            age=random.randint(18, 100)))
-            Student.objects.bulk_create(studentList)
-               
+                studentList.append(Student(first_name=f.first_name(), last_name=f.last_name(), age=random.randint(18, 100)))
+                Student.objects.bulk_create(studentList)
+
             return redirect('list-students')
     else:
         form = GenerateNow()
     return render(request, 'generate_now.html', {'form': form})
-        
+
 
 def create_student(request):
     if request.method == 'POST':
@@ -114,6 +112,7 @@ def generate(request):
         form = GenerateRandomUserForm()
     return render(request, 'generate.html', {'form': form})
 
+
 def ContactUs(request):
     if request.method == 'POST':
         form = ContactUS(request.POST)
@@ -121,10 +120,9 @@ def ContactUs(request):
             title = form.cleaned_data['title']
             message = form.cleaned_data['message']
             email_from = form.cleaned_data['email_from']
-            send_email_to.delay(title, message, email_from)      
+            send_email_to.delay(title, message, email_from)
         return HttpResponse('Mail sent')
-    
+
     else:
         form = ContactUS()
     return render(request, 'ContactUS.html', {'form': form})
-    
