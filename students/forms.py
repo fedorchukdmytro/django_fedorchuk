@@ -26,8 +26,8 @@ class StudentFormFromModel(forms.ModelForm):
 
 
 class ContactUS(forms.Form):
-    title = forms.CharField(label="Тема Вашего обращения", required=True)
-    message = forms.CharField(label="Ваше сообщение", required=True)
+    title = forms.CharField(label="Тема Вашего обращения", max_length=100, required=True)
+    message = forms.CharField(label="Ваше сообщение", max_length=1000, required=True)
     email_from = forms.EmailField(label="Введите Ваш адрес электронной почты")
 
 
