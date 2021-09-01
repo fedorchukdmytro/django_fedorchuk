@@ -1,21 +1,19 @@
-{% extends "parent.html" %}
-{% block head %}
-    {{ block.super }}
-    <style type="text/css">
-        body { background-color: aquamarine; }
-    </style>
-{% endblock %}
-{% block content %}
-{{ block.super }}
+{% extends "parent.html" %} {% block head %} {{ block.super }}
+<style type="text/css">
+    body {
+        background-color: aquamarine;
+    }
+</style>
+{% endblock %} {% block content %} {{ block.super }}
 
 <h1>Groups List</h1>
-    <ul>
-        {% for group in groups %}
-        <li>
-            {{ group.id|safe }}. {{ group.descipline|safe }} {{ group.hours_to_take|safe }} 
-            <a href="{% url 'edit-group' group.id %}">Edit</a> 
-            <a href="{% url 'delete-group' group.id %}">Delete</a>
-        </li>
-        {% endfor %}
-    </ul>
-{% endblock %}
+<ul>
+    {% for group in groups %}
+    <li>
+        {{ group.id|safe }}. {{ group.descipline|safe }} {{ group.hours_to_take|safe }} <span>Куратор: </span>{{ group.curator|safe }} <span>Староста: </span>{{ group.headman|safe }}
+        <a href="{% url 'edit-group' group.id %}">Edit</a>
+        <a href="{% url 'delete-group' group.id %}">Delete</a>
+    </li>
+    {% endfor %}
+</ul>
+<a href="{% url 'list-teachers' %}">teachers LIST</a> {% endblock %}
