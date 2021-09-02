@@ -35,19 +35,19 @@ CELERY_BROKER_URL = 'pyamqp://guest@localhost//'
 CELERY_BEAT_SCHEDULE = {
     'beat_log': {
         'task': 'students.tasks.beat_log',
-        'schedule': 300,
+        'schedule': crontab(15, 12),
     },
     'currecy': {
         'task': 'currency.tasks.get_currency_rates',
-        'schedule': 300,
+        'schedule': crontab(15, 12),
     },
     'currecy_mono': {
         'task': 'currency.tasks.get_currency_mono',
-        'schedule': 300,
+        'schedule': crontab(15, 12),
     },
     'currecy_national': {
         'task': 'currency.tasks.get_currency_national',
-        'schedule': 300,
+        'schedule': crontab(15, 12),
     },
     # 'curr_nah': {
     #     'task': 'currency.tasks.cur_nah',
