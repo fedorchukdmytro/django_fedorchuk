@@ -6,13 +6,29 @@
 </style>
 {% endblock %} {% block content %}
 <h1>Teachers List</h1>
-<ul>
-    {% for teacher in teachers %}
-    <li>
-        {{ teacher.id|safe }}. {{ teacher.first_name|safe }} {{ teacher.last_name|safe }}, age {{teacher.age|safe }}
-        <a href="{% url 'edit-teacher' teacher.id %}">Edit</a>
-        <a href="{% url 'delete-teacher' teacher.id%}">DELETE</a>
-    </li>
+<a href="{% url 'list-groups' %}">LIST GROUPS</a>
+<a href="{% url 'list-students' %}">LIST STUDENTS</a>
+<a href="{% url 'index' %}">BACK TO MAIN PAGE</a>
+<table class="table table-hover table-sm">
+    <tr>
+        <th>ID</th>
+        <th>last_name</th>
+        <th>first_name</th>
+        <th>Age</th>
+        <th>Headed Group</th>
+    </tr>
+    {% for teacher in teachers%}
+    <tr>
+        <th>{{teacher.id|safe}}</th>
+        <th>{{teacher.last_name|safe}}</th>
+        <th>{{teacher.first_name|safe}}</th>
+        <th>{{teacher.age|safe}}</th>
+        <th>{% if teacher.submissive_group %}{{teacher.submissive_group.descipline}}{% endif %} </th>
+        <th> <a href="{% url 'edit-teacher' teacher.id %}">Edit</a></th>
+        <th><a href="{% url 'delete-teacher' teacher.id%}">DELETE</a></th>
+    </tr>
     {% endfor %}
-</ul>
+
+</table>
+
 <a href="{% url 'list-groups' %}">GROUPS LIST</a> {% endblock %}

@@ -6,13 +6,39 @@
 </style>
 {% endblock %} {% block content %}
 <h1>Student List</h1>
-<ul>
-    {% for student in students %}
-    <li>
-        {{ student.id|safe }}. {{ student.first_name|safe }} {{ student.last_name|safe }}, age {{student.age|safe }} <span>..................</span>{{student.phone|safe}}
-        <a href="{% url 'edit-student' student.id %}">Edit</a>
-        <a href="{% url 'delete-student' student.id %}">Delete</a>
-    </li>
+<a href="{% url 'list-teachers' %}">LIST TEACHERS</a>
+<a href="{% url 'list-groups' %}">LIST GROUPS</a>
+<a href="{% url 'index' %}">BACK TO MAIN PAGE</a>
+<table class="table table-hover table-sm">
+    <tr>
+        <th>ID</th>
+        <th>last_name</th>
+        <th>first_name</th>
+        <th>Age</th>
+        <th>Phone</th>
+        <th>Group</th>
+        <th>Headed Group</th>
+
+
+
+
+
+    </tr>
+    {% for student in students%}
+    <tr>
+        <th>{{student.id}}</th>
+        <th>{{student.last_name}}</th>
+        <th>{{student.first_name}}</th>
+        <th>{{student.age}}</th>
+        <th>{{student.phone}}</th>
+        <th>{% if student.group %}{{ student.group.descipline }}{% endif %}</th>
+        <th>{% if student.submissive_group %}{{student.submissive_group.descipline}}{% endif %} </th>
+    </tr>
     {% endfor %}
-</ul>
-<a href="{% url 'index' %}">BACK TO MAIN PAGE</a> {% endblock %}
+
+</table>
+
+
+
+
+{% endblock %}

@@ -12,7 +12,7 @@ class Teacher(models.Model):
         return f"{self.first_name}  {self.last_name}"
     
     @classmethod
-    def gen(cls):
+    def _gen(cls):
         fake = Faker()
         tc = Teacher(
             first_name=fake.first_name(),
@@ -20,3 +20,7 @@ class Teacher(models.Model):
             age=random.randint(18, 100))  
         tc.save()
         return tc
+
+    def submissive_group(self):
+        sub = self.group_set.all().get()
+        return sub

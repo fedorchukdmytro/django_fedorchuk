@@ -28,8 +28,12 @@ def list_students(request):
 
 
 def generate_student(request):
+    # breakpoint()
     studentadd = Student.objects.create(first_name=f.last_name(), last_name=f.last_name(), age=random.randint(18, 100))
+    vasya = studentadd
     output = f"{studentadd.id} {studentadd.first_name} {studentadd.last_name} {studentadd.age}"
+    qr = Student.gen()
+    vasya2 = qr
     return HttpResponse(output)
 
 

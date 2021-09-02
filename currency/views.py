@@ -8,41 +8,10 @@ from .choices import CURRENCIES
 # Create your views here.
 
 def currency_exchange_rate(request):
-    
-#     exchange_response = requests.get(' http://api.monobank.ua/bank/currency')
-#     exchange_result = exchange_response.json()
-     
-    
-#     if any(type(rate) == str for rate in exchange_result):
-#         print('ОПЯТЬ ХУЙНЯ')
-               
-#     else:
-#         for rate in exchange_result:
-#             if rate['currencyCodeA'] == 840:
-#                     rate['currencyCodeA'] = 'USD'
-#             elif rate['currencyCodeA'] == 978:
-#                     rate['currencyCodeA'] = 'EUR'
-#             elif rate['currencyCodeA'] == 643:
-#                     rate['currencyCodeA'] = 'RUR'
-
-#         # new_result = exchange_result    
-#         for rate in exchange_result:
-#             if rate.get('currencyCodeA') not in [currency[0] for currency in CURRENCIES]:
-#                 continue
-#             exchange = Exchange(
-#                 currency = rate.get('currencyCodeA'),
-#                 buy_price = rate.get('rateBuy'),
-#                 bank = 'MONO',
-#                 sale_price = rate.get('rateSell') 
-#             )
-#             exchange.save()
-
-#     return HttpResponse (exchange_result)
-
-# def get_currency_national(request):    
-    exchange_response = requests.get('https://bank.gov.ua/NBU_Exchange/exchange?json')
+    breakpoint()
+    exchange_response = requests.get('http://api.monobank.ua/bank/currency')
     exchange_result = exchange_response.json()
-     
+    print(exchange_result) 
     
     if any(type(rate) == str for rate in exchange_result):
          print('ОПЯТЬ ХУЙНЯ')
@@ -50,26 +19,23 @@ def currency_exchange_rate(request):
     else:
           new_result = []
           for rate in exchange_result:
-                print(rate)       
-        # if rate['r030'] == 840:
-        #             print(rate['r030'])
-        #             rate["r030"] = 'USD'
-        #             new_result.append(rate)
-        #        elif rate["r030"] == 978 :
-        #             rate["r030"] = 'EUR'
-        #             new_result.append(rate)
-        #        elif rate["r030"] == 643:
-        #             rate["r030"] = 'RUR'
-        #             new_result.append(rate)
-        # # new_result = exchange_result    
-        #   for rate in new_result:
-        #        if rate.get("r030") not in [currency[0] for currency in CURRENCIES]:
-        #          continue
-        #        exchange = Exchange(
-        #            currency = rate.get("r030"),
-        #            buy_price = rate.get("rate"),
-        #            bank = 'NATIONAL',
-        #            sale_price = rate.get("rate") 
-        #            )
-            #    exchange.save()
+               if rate['currencyCodeA'] == 840 and rate['currencyCodeB'] == 980:
+                    rate['currencyCodeA'] = 'USD'
+                    new_result.append(rate)
+               elif rate['currencyCodeA'] == 978 and rate['currencyCodeB'] == 980:
+                    rate['currencyCodeA'] = 'EUR'
+                    new_result.append(rate)
+               elif rate['currencyCodeA'] == 643 and rate['currencyCodeB'] == 980:
+                    rate['currencyCodeA'] = 'RUR'
+                    new_result.append(rate)   
+          for rate in new_result:
+               if rate.get('currencyCodeA') not in [currency[0] for currency in CURRENCIES]:
+                 continue
+               exchange = Exchange(
+                   currency = rate.get('currencyCodeA'),
+                   buy_price = rate.get('rateBuy'),
+                   bank = 'MONO',
+                   sale_price = rate.get('rateSell') 
+                   )
+               exchange.save()
     return HttpResponse(exchange_result)

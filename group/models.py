@@ -9,8 +9,12 @@ from faker import Faker
 class Group(models.Model):
     descipline = models.CharField(max_length=200)
     hours_to_take = models.IntegerField(default=32)
-    headman = models.ForeignKey('students.Student', null=True, unique=False, on_delete=models.CASCADE, related_name="headed_group")
+    headman = models.ForeignKey('students.Student',blank=True, null=True, unique=False, on_delete=models.CASCADE, related_name="headed_group")
     curator = models.ForeignKey(Teacher, on_delete=models.CASCADE, null=True, blank=True,)
+
+    def __str__(self) -> str:
+        return f" {self.descipline}"
+
 
     @classmethod
     def _gen(cls):

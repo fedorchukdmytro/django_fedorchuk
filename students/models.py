@@ -15,7 +15,7 @@ class Student(models.Model):
         return f"{self.first_name} {self.last_name} {self.age} {self.phone}"
    
     @classmethod
-    def gen(cls):
+    def _gen(cls):
         fake = Faker()
         st = Student(
             first_name=fake.first_name(),
@@ -25,6 +25,11 @@ class Student(models.Model):
             
         st.save()
         return st
+
+    def submissive_group(self):
+        sub = self.headed_group.all().get()
+        return sub
+
 
 class Logger(models.Model):
     method = models.CharField(max_length=6)
