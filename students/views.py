@@ -2,6 +2,7 @@ import random
 
 from django import forms
 from django.contrib import messages
+from django.core.paginator import Paginator
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse
@@ -24,16 +25,20 @@ def index(request):
 
 def list_students(request):
     student_list = Student.objects.all()
-    return render(request, 'list_students.html', {'students': student_list})
+    p = Paginator(student_list, 20)
+    page_num = request.GET.get('page', 1)
+    page = p.page(page_num)
+    context = {'students': page}
+    return render(request, 'list_students.html', context)
 
 
 def generate_student(request):
     # breakpoint()
     studentadd = Student.objects.create(first_name=f.last_name(), last_name=f.last_name(), age=random.randint(18, 100))
-    vasya = studentadd
+    vasya = studentadd # noqa
     output = f"{studentadd.id} {studentadd.first_name} {studentadd.last_name} {studentadd.age}"
-    qr = Student.gen()
-    vasya2 = qr
+    qr = Student._gen()
+    vasya2 = qr # noqa
     return HttpResponse(output)
 
 

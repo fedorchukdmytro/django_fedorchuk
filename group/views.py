@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -8,7 +9,11 @@ from .models import Group
 
 def list_groups(request):
     groups_list = Group.objects.all()
-    return render(request, 'list_groups.html', {'groups': groups_list})
+    p = Paginator(groups_list, 20)
+    page_num = request.GET.get('page', 1)
+    page = p.page(page_num)
+    context = {'groups': page}
+    return render(request, 'list_groups.html', context)
 
 
 def create_group(request):

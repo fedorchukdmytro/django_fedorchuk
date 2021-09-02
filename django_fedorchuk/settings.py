@@ -35,24 +35,24 @@ CELERY_BROKER_URL = 'pyamqp://guest@localhost//'
 CELERY_BEAT_SCHEDULE = {
     'beat_log': {
         'task': 'students.tasks.beat_log',
-        'schedule': crontab()
-    } , 
+        'schedule': 300,
+    },
     'currecy': {
         'task': 'currency.tasks.get_currency_rates',
-        'schedule': 10
+        'schedule': 300,
     },
-     'currecy_mono': {
+    'currecy_mono': {
         'task': 'currency.tasks.get_currency_mono',
-        'schedule': 10
+        'schedule': 300,
     },
     'currecy_national': {
         'task': 'currency.tasks.get_currency_national',
-        'schedule': 10
+        'schedule': 300,
     },
-    'curr_nah': {
-        'task': 'currency.tasks.cur_nah',
-        'schedule': 30
-    }
+    # 'curr_nah': {
+    #     'task': 'currency.tasks.cur_nah',
+    #     'schedule': crontab(15, 12)
+    # }
 
 }
 # Application definition

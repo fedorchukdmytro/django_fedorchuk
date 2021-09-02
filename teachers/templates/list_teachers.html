@@ -30,5 +30,6 @@
     {% endfor %}
 
 </table>
-
-<a href="{% url 'list-groups' %}">GROUPS LIST</a> {% endblock %}
+{% if teachers.has_previous %}
+<a href="{% url 'list-teachers' %}?page={{teachers.previous_page_number}}">Previous Page</a> {% endif %} {% if teachers.has_next %}
+<a href="{% url 'list-teachers' %}?page={{teachers.next_page_number}}">Next Page</a>{% endif %}{% endblock %}

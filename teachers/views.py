@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse
@@ -8,7 +9,11 @@ from .models import Teacher
 
 def list_teachers(request):
     teachers_list = Teacher.objects.all()
-    return render(request, 'list_teachers.html', {'teachers': teachers_list})
+    p = Paginator(teachers_list, 20)
+    page_num = request.GET.get('page', 1)
+    page = p.page(page_num)
+    context = {'teachers': page}
+    return render(request, 'list_teachers.html', context)
 
 
 def filter_teachers(request):

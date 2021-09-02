@@ -39,6 +39,6 @@
 </table>
 
 
-
-
-{% endblock %}
+{% if students.has_previous %}
+<a href="{% url 'list-students' %}?page={{students.previous_page_number}}">Previous Page</a> {% endif %} {% if students.has_next %}
+<a href="{% url 'list-students' %}?page={{students.next_page_number}}">Next Page</a> {% endif %} {% endblock %}
