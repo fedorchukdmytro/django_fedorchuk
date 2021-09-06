@@ -16,7 +16,9 @@
         <th>first_name</th>
         <th>Age</th>
         <th>Phone</th>
+        <th>status</th>
         <th>Group</th>
+
         <th>Headed Group</th>
 
 
@@ -31,6 +33,7 @@
         <th>{{student.first_name}}</th>
         <th>{{student.age}}</th>
         <th>{{student.phone}}</th>
+        <th>{{student.status}}</th>
         <th>{% if student.group %}{{ student.group.descipline }}{% endif %}</th>
         <th>{% if student.submissive_group %}{{student.submissive_group.descipline}}{% endif %} </th>
     </tr>
