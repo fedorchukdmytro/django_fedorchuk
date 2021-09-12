@@ -10,7 +10,7 @@ from .models import Student
 class StudentFormFromModel(forms.ModelForm):
     class Meta:
         model = Student
-        fields = ['first_name', 'last_name', 'age', 'phone']
+        fields = ['first_name', 'last_name', 'age', 'phone', 'status']
 
     def clean(self):
         # breakpoint()

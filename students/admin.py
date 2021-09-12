@@ -7,8 +7,8 @@ from .models import Logger, Student
 
 @admin.register(Student)
 class StudentAdmin(admin.ModelAdmin):
-    list_display = ("last_name", "first_name", "age", 'link_to_group', 'phone', 'submissive_group')
-    list_filter = ("age", "last_name", "first_name")
+    list_display = ("last_name", "first_name", "age", 'link_to_group', 'phone', 'submissive_group', 'status')
+    list_filter = ('status',)
     search_fields = ("last_name__startswith", )
     list_display_links = ["last_name", "first_name", 'link_to_group', ]
 
