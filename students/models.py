@@ -29,7 +29,7 @@ class Student(models.Model):
         (SENIOR, 'Senior'),
         (GRADUATE, 'Graduate'),]
     
-    first_name = models.CharField(max_length=200)
+    first_name = models.CharField(max_length=200, verbose_name='фамилия')
     last_name = models.CharField(max_length=200)
     age = models.IntegerField(default=18)
     phone = models.CharField(max_length=15, null=True)
