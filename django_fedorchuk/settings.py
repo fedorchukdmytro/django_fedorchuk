@@ -39,15 +39,15 @@ CELERY_BEAT_SCHEDULE = {
     },
     'currecy': {
         'task': 'currency.tasks.get_currency_rates',
-        'schedule': crontab(15, 12),
+        'schedule': 300,
     },
     'currecy_mono': {
         'task': 'currency.tasks.get_currency_mono',
-        'schedule': crontab(15, 12),
+        'schedule': 300,
     },
     'currecy_national': {
         'task': 'currency.tasks.get_currency_national',
-        'schedule': crontab(15, 12),
+        'schedule': 300,
     },
     # 'curr_nah': {
     #     'task': 'currency.tasks.cur_nah',
