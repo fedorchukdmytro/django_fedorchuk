@@ -3,9 +3,8 @@ import random
 from django.db import models
 
 from faker import Faker
-from group.models import Group
 
-# from group.models import Group
+from group.models import Group
 
 YEAR_IN_SCHOOL_CHOICES = [
     ('FR', 'Freshman'),
@@ -27,8 +26,8 @@ class Student(models.Model):
         (SOPHOMORE, 'Sophomore'),
         (JUNIOR, 'Junior'),
         (SENIOR, 'Senior'),
-        (GRADUATE, 'Graduate'),]
-    
+        (GRADUATE, 'Graduate'), ]
+
     first_name = models.CharField(max_length=200, verbose_name='ИМЯ')
     last_name = models.CharField(max_length=200, verbose_name='ФАМИЛИЯ')
     age = models.IntegerField(default=18, verbose_name='ВОЗРАСТ')
@@ -39,10 +38,10 @@ class Student(models.Model):
         verbose_name='ГОД ОБУЧЕНИЯ',
         choices=YEAR_IN_SCHOOL_CHOICES,
         default=FRESHMAN)
-    
+
     def __str__(self):
         return f"{self.first_name} {self.last_name} {self.age} {self.phone} {self.status}"
- 
+
     @classmethod
     def _gen(cls):
         fake = Faker()
@@ -61,9 +60,6 @@ class Student(models.Model):
         return sub
     submissive_group.short_description = 'СТАРОСТА ГРУППЫ'
 
-
-    # --------to ask Vetal----------------
-    
     def total_students_in_his_group(self):
         his_group = self.group
         if self.group is not None:
@@ -75,15 +71,7 @@ class Student(models.Model):
         else:
             pass
     total_students_in_his_group.short_description = 'ОДНОГРУПНИКИ'
-        
-        
-        
-    
-    
-    
-    
-    
-    
+
     # def save(self, *args, **kwargs):
     #     # breakpoint()
     #     super(Student, self).save(*args, **kwargs)
@@ -91,20 +79,12 @@ class Student(models.Model):
     #     self.group.number_of_students_engaged = st_num
     #     self.group.save()
 
-
     # def delete(self, *args, **kwargs):
     #     # breakpoint()
     #     super(Student, self).delete(*args, **kwargs)
     #     st_num = int(len(self.group.student_in_group.all()))
     #     self.group.number_of_students_engaged = st_num
     #     self.group.save()
-
-
-
-
-
-
-
 
 
 class Logger(models.Model):

@@ -8,8 +8,6 @@ from .models import Exchange
 
 
 def list_exchange(request):
-    list = Exchange.objects.all()
-    context = {'list': list}
+    listall = Exchange.objects.all()
+    context = {'list': listall}
     return render(request, 'exchange.html', context)
-
-

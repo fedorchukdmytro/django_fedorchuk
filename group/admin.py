@@ -7,7 +7,8 @@ from .models import Group
 
 @admin.register(Group)
 class GroupAdmin(admin.ModelAdmin):
-    list_display = ("descipline", "hours_to_take", 'link_to_curator', "link_to_headman" , 'number_of_students_engaged', 'total_groups', 'total_groups_in_un')
+    list_display = ("descipline", "hours_to_take", 'link_to_curator', "link_to_headman",
+                    'number_of_students_engaged', 'total_groups', 'total_groups_in_un')
     list_filter = ("descipline", "hours_to_take")
     search_fields = ("descipline__startswith", )
     list_display_links = ['link_to_curator', 'link_to_headman', "descipline", 'number_of_students_engaged']
@@ -25,5 +26,3 @@ class GroupAdmin(admin.ModelAdmin):
             return format_html(u'<a href="%s ">%s<a/>' % (link, obj.curator.last_name))
         else:
             pass
-
-            
