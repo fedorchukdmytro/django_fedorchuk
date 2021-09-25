@@ -67,7 +67,8 @@ INSTALLED_APPS = [
     'students.apps.StudentsConfig',
     'teachers.apps.TeachersConfig',
     'group.apps.GroupConfig',
-    'currency'
+    'currency.apps.CurrencyConfig',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
