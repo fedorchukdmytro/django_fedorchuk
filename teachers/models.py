@@ -24,5 +24,5 @@ class Teacher(models.Model):
         return tc
 
     def submissive_group(self):
-        sub = self.group_set.all().get()
+        sub = self.group
         return sub

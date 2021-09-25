@@ -19,13 +19,13 @@ class Command(BaseCommand):
         teachers_list = [Teacher._gen() for _ in range(options['number_of_teachers'])]
         groups_list = []
         for teacher in teachers_list:
-            teacher.group_set.add(Group._gen())
-            groups_list.append(teacher.group_set.all().get())
+            teacher.group = Group._gen()
+            groups_list.append(teacher.group)
         for group in groups_list:
             sostav = []
             for _ in range(random.randint(1, 10)):
-                group.student_in_group.add(Student._gen())
-            sostav.append(list(group.student_in_group.all()))
+                group.student_set.add(Student._gen())
+            sostav.append(list(group.student_set.all()))
             group.headman = sostav[0][0]
             group.save()
         self.stdout.write(self.style.SUCCESS('Successfully created teachers'))

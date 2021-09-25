@@ -1,7 +1,7 @@
 {% extends "parent.html" %} {% block head %} {{ block.super }}
 <style type="text/css">
     body {
-        background-color: aquamarine;
+        background-color: rgb(242, 248, 246);
     }
 </style>
 {% endblock %} {% block content %}
@@ -9,8 +9,9 @@
 <a href="{% url 'list-teachers' %}">LIST TEACHERS</a>
 <a href="{% url 'list-groups' %}">LIST GROUPS</a>
 <a href="{% url 'index' %}">BACK TO MAIN PAGE</a>
-<table class="table table-hover table-sm">
-    <tr>
+<table class="table table-striped">
+    <thead class="thead-dark">
+
         <th>ID</th>
         <th>last_name</th>
         <th>first_name</th>
@@ -18,14 +19,9 @@
         <th>Phone</th>
         <th>status</th>
         <th>Group</th>
-
         <th>Headed Group</th>
 
-
-
-
-
-    </tr>
+    </thead>
     {% for student in students%}
     <tr>
         <th>{{student.id}}</th>

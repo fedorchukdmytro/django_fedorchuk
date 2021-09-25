@@ -1,25 +1,25 @@
 {% extends "parent.html" %} {% block head %} {{ block.super }}
 <style type="text/css">
     body {
-        background-color: aquamarine;
+        background-color: rgb(217, 243, 234);
     }
 </style>
 {% endblock %} {% block content %}
-<h1>Student List</h1>
+<h1>Exchange rates List</h1>
 <a href="{% url 'list-teachers' %}">LIST TEACHERS</a>
 <a href="{% url 'list-groups' %}">LIST GROUPS</a>
 <a href="{% url 'index' %}">BACK TO MAIN PAGE</a>
-<table class="table table-hover table-sm">
-    <tr>
+<table class="table table-striped">
+    <thead class="thead-dark">
         <th>CREATED</th>
         <th>CURRENCY</th>
         <th>BANK</th>
         <th>SELL</th>
         <th>BUY</th>
-    </tr>
+    </thead>
     {% for exchange in list%}
     <tr>
-        <th>{{exchange.created}}</th>
+        <td>{{exchange.created}}</td>
         <th>{{exchange.currency}}</th>
         <th>{{exchange.bank}}</th>
         <th>{{exchange.sale_price}}</th>

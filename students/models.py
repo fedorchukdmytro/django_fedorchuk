@@ -3,9 +3,9 @@ import random
 from django.db import models
 
 from faker import Faker
-
-
 from group.models import Group
+
+# from group.models import Group
 
 YEAR_IN_SCHOOL_CHOICES = [
     ('FR', 'Freshman'),
@@ -29,13 +29,14 @@ class Student(models.Model):
         (SENIOR, 'Senior'),
         (GRADUATE, 'Graduate'),]
     
-    first_name = models.CharField(max_length=200, verbose_name='фамилия')
-    last_name = models.CharField(max_length=200)
-    age = models.IntegerField(default=18)
-    phone = models.CharField(max_length=15, null=True)
-    group = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True, related_name="student_in_group")
+    first_name = models.CharField(max_length=200, verbose_name='ИМЯ')
+    last_name = models.CharField(max_length=200, verbose_name='ФАМИЛИЯ')
+    age = models.IntegerField(default=18, verbose_name='ВОЗРАСТ')
+    phone = models.CharField(max_length=15, null=True, verbose_name='НОМЕР ТЕЛЕФОНА')
+    group = models.ForeignKey(Group, on_delete=models.SET_NULL, verbose_name='СОСТОИТ В ГРУППЕ', null=True, blank=True)
     status = models.CharField(
         max_length=2,
+        verbose_name='ГОД ОБУЧЕНИЯ',
         choices=YEAR_IN_SCHOOL_CHOICES,
         default=FRESHMAN)
     
@@ -58,6 +59,52 @@ class Student(models.Model):
     def submissive_group(self):
         sub = self.headed_group.all().get()
         return sub
+    submissive_group.short_description = 'СТАРОСТА ГРУППЫ'
+
+
+    # --------to ask Vetal----------------
+    
+    def total_students_in_his_group(self):
+        his_group = self.group
+        if self.group is not None:
+            total = his_group.student_set.all()
+            fug = []
+            for i in total:
+                fug.append(i.last_name)
+            return fug
+        else:
+            pass
+    total_students_in_his_group.short_description = 'ОДНОГРУПНИКИ'
+        
+        
+        
+    
+    
+    
+    
+    
+    
+    # def save(self, *args, **kwargs):
+    #     # breakpoint()
+    #     super(Student, self).save(*args, **kwargs)
+    #     st_num = int(len(self.group.student_in_group.all()))
+    #     self.group.number_of_students_engaged = st_num
+    #     self.group.save()
+
+
+    # def delete(self, *args, **kwargs):
+    #     # breakpoint()
+    #     super(Student, self).delete(*args, **kwargs)
+    #     st_num = int(len(self.group.student_in_group.all()))
+    #     self.group.number_of_students_engaged = st_num
+    #     self.group.save()
+
+
+
+
+
+
+
 
 
 class Logger(models.Model):

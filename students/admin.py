@@ -7,11 +7,11 @@ from .models import Logger, Student
 
 @admin.register(Student)
 class StudentAdmin(admin.ModelAdmin):
-    list_display = ("last_name", "first_name", "age", 'link_to_group', 'phone', 'submissive_group', 'status')
+    list_display = ("last_name", "first_name", "age", 'link_to_group', 'phone', 'submissive_group', 'status', 'total_students_in_his_group')
     list_filter = ('status',)
     search_fields = ("last_name__startswith", )
     list_display_links = ["last_name", "first_name", 'link_to_group', ]
-    list_editable = ['age']
+    # list_editable = ['age']
 
 
 
@@ -22,6 +22,7 @@ class StudentAdmin(admin.ModelAdmin):
             return format_html(u'<a href="%s">%s<a/>' % (link, obj.group.descipline))
         else:
             pass
+    link_to_group.short_description = 'СОСТОИТ В ГРУППЕЕЕ'
 
 
 @admin.register(Logger)
