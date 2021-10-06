@@ -225,3 +225,14 @@ class ContactUs(FormView):
     # else:
     #     form = ContactUS()
     # return render(request, 'ContactUS.html', {'form': form})
+
+def check():
+    pass
+
+def handler404(request, exception):
+    return render(request, 'not_found.html', status=404)
+
+
+
+def handler500(request):
+    return render(request, '500.html', status=500)

@@ -25,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-r8p=+a)6$s1cc5**e#=!2l90z$1r!x*r$3gbgep(!ih&zm%-zf'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 CELERY_BROKER_URL = 'pyamqp://guest@localhost//'
 
@@ -68,7 +68,7 @@ INSTALLED_APPS = [
     'teachers.apps.TeachersConfig',
     'group.apps.GroupConfig',
     'currency.apps.CurrencyConfig',
-    # 'django_extensions',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [

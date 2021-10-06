@@ -6,7 +6,7 @@ from .views import (ContactUs, GenerateWithCelery, UpdateStudentView,
                     StudentDeleteView,
                     GenerateNow,
                     
-                    
+                    check,
                     GenerateStudent,
                     GenerateStudents,
                     index,
@@ -24,5 +24,6 @@ urlpatterns = [
     path('delete-student/<int:pk>', StudentDeleteView.as_view(), name='delete-student'),
     path('generate/', GenerateWithCelery.as_view(), name='generate'),
     path('generate-now/', GenerateNow.as_view(), name='generate-now'),
-    path('contactus/', ContactUs.as_view(), name='contactus')
+    path('contactus/', ContactUs.as_view(), name='contactus'),
+    path('check/', check, name = 'check')
 ]
