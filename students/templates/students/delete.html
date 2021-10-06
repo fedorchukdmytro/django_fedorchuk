@@ -1,0 +1,14 @@
+{% extends 'parent.html' %} {% block head %} {{ block.super }}
+<style type="text/css">
+    body {
+        background-color: aquamarine;
+    }
+</style>
+{%endblock%} {% block header %} Delete student. {% endblock %} {% block content %}
+<form method="post">
+    {% csrf_token %}
+    <p>Do you really remove {{ object.last_name }} {{ object.first_name }}?</p>
+    <input class="btn btn-danger" type="submit" value="Agree">
+    <a class="btn btn-primary" href="{% url 'list-students' %}">Cancel</a>
+</form>
+{% endblock %}

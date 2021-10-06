@@ -21,21 +21,45 @@
     </ul>
     {% endif %}
     <div id="content">{% block content %}
+        <a href="{% url 'list-students' %}">LIST STUDENTS</a></br>
+        <a href="{% url 'create-student' %}">CREATE Student</a></br>
 
-        <a href="{% url 'generate' %}">Создать студентов с CELERY</a></br>
-        <a href="{% url 'contactus' %}">Contuct US</a></br>
-        <a href="{% url 'create-student' %}">Форма для создания одного студента</a></br>
+        <span>______</span><a href="{% url 'generate' %}">Создать студентов с CELERY</a></br>
+        <span>______</span><a href="{% url 'contactus' %}">Contuct US</a></br>
 
-        <a href="{% url 'generate-student' %}">Generate one fake student</a></br>
-        <a href="{% url 'generate-students' %}">Generate a number of students with query count=number</a></br>
-        <a href="{% url 'generate-now' %}">Generate a number of fake student now</a></br>
+        <span>______</span><a href="{% url 'generate-student' %}">Generate one fake student</a></br>
+        <span>______</span> <a href="{% url 'generate-students' %}">Generate a number of students with query count=number</a></br>
+        <span>______</span> <a href="{% url 'generate-now' %}">Generate a number of fake student now</a></br>
         <span>____________________________________________________________________</span></br>
         <span>____________________________________________________________________</span></br>
         <span>                                                                    </span></br>
         <a href="{% url 'list-teachers' %}">LIST TEACHERS</a></br>
+        <a href="{% url 'create-teacher' %}">CREATE TEACHERS</a></br>
+        <span>____________________________________________________________________</span></br>
+        <span>____________________________________________________________________</span></br>
+        <span>                                                                    </span></br>
+
         <a href="{% url 'list-groups' %}">LIST GROUPS</a></br>
-        <a href="{% url 'list-students' %}">LIST STUDENTS</a></br>
+        <a href="{% url 'create-group' %}">CREATE GROUP</a></br>
+        <span>____________________________________________________________________</span></br>
+        <span>____________________________________________________________________</span></br>
+        <span>                                                                    </span></br>
+
+
+
+
+        <span>____________________________________________________________________</span></br>
+        <span>____________________________________________________________________</span></br>
+        <span>                                                                    </span></br>
+
         <a href="{% url 'exchange' %}">EXCHANGE RATES</a></br>
+
+        <span>____________________________________________________________________</span></br>
+        <span>____________________________________________________________________</span></br>
+        <span>                                                                    </span></br>
+
+
+
         <a href="{% url 'admin:index' %}">link to admin panel</a> {% endblock %}
 
 
