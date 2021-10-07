@@ -1,21 +1,19 @@
 
 from django.urls import path
 
-from .views import (ContactUs, GenerateWithCelery, UpdateStudentView,
-                    
-                    StudentDeleteView,
-                    GenerateNow,
-                    
-                    check,
+from .views import (ContactUs, GenerateNow,
                     GenerateStudent,
                     GenerateStudents,
-                    index,
-                    UpdateStudentView,
+                    GenerateWithCelery,
+                    HomeView,
+                    StudentCreateView,
+                    StudentDeleteView,
                     StudentListView,
-                    StudentCreateView)
+                    UpdateStudentView,
+                    check)
 
 urlpatterns = [
-    path('', index, name='index'),
+    path('', HomeView.as_view(), name='index'),
     path('list-students/', StudentListView.as_view(), name='list-students'),
     path('edit-student/<int:pk>', UpdateStudentView.as_view(), name='edit-student'),
     path('generate-student/', GenerateStudent.as_view(), name='generate-student'),
@@ -25,5 +23,5 @@ urlpatterns = [
     path('generate/', GenerateWithCelery.as_view(), name='generate'),
     path('generate-now/', GenerateNow.as_view(), name='generate-now'),
     path('contactus/', ContactUs.as_view(), name='contactus'),
-    path('check/', check, name = 'check')
+    path('check/', check, name='check')
 ]
