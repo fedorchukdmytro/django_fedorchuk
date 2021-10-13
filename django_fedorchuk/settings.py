@@ -35,8 +35,25 @@ CELERY_BROKER_URL = 'pyamqp://guest@localhost//'
 CELERY_BEAT_SCHEDULE = {
     'beat_log': {
         'task': 'students.tasks.beat_log',
-        'schedule': crontab(30, 12)
-    }
+        'schedule': crontab(15, 12),
+    },
+    'currecy': {
+        'task': 'currency.tasks.get_currency_rates',
+        'schedule': crontab(15, 12),
+    },
+    'currecy_mono': {
+        'task': 'currency.tasks.get_currency_mono',
+        'schedule': crontab(15, 12),
+    },
+    'currecy_national': {
+        'task': 'currency.tasks.get_currency_national',
+        'schedule': crontab(15, 12),
+    },
+    # 'curr_nah': {
+    #     'task': 'currency.tasks.cur_nah',
+    #     'schedule': crontab(15, 12)
+    # }
+
 }
 # Application definition
 
@@ -49,7 +66,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'students.apps.StudentsConfig',
     'teachers.apps.TeachersConfig',
-    'group.apps.GroupConfig'
+    'group.apps.GroupConfig',
+    'currency'
 ]
 
 MIDDLEWARE = [

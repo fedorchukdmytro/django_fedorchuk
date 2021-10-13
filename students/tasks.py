@@ -36,6 +36,4 @@ def send_email_to(title, message, email_from):
 
 @shared_task
 def beat_log():
-    lst = Logger.objects.filter(created__lte=(datetime.now() - timedelta(days=7)))
-    for entry in lst:
-        entry.delete()
+    Logger.objects.filter(created__lte=(datetime.now() - timedelta(minutes=1))).delete()
