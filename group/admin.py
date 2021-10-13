@@ -7,10 +7,11 @@ from .models import Group
 
 @admin.register(Group)
 class GroupAdmin(admin.ModelAdmin):
-    list_display = ("descipline", "hours_to_take", 'link_to_curator', "link_to_headman")
+    list_display = ("descipline", "hours_to_take", 'link_to_curator', "link_to_headman",
+                    'number_of_students_engaged', 'total_groups', 'total_groups_in_un')
     list_filter = ("descipline", "hours_to_take")
     search_fields = ("descipline__startswith", )
-    list_display_links = ['link_to_curator', 'link_to_headman', "descipline"]
+    list_display_links = ['link_to_curator', 'link_to_headman', "descipline", 'number_of_students_engaged']
 
     def link_to_headman(self, obj):
         if obj.headman is not None:
