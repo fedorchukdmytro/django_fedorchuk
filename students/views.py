@@ -1,17 +1,25 @@
 import random
 
 from django import forms
+from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.urls import reverse
 
 from faker import Faker
 
+from .forms import ContactUS
+from .forms import GenerateNow
+from .forms import GenerateRandomUserForm
 from .forms import StudentFormFromModel
 from .models import Student
-
+from .tasks import send_email_to, st_generate
 
 f = Faker()
+
+
+def index(request):
+    return render(request, 'index.html')
 
 
 def list_students(request):
@@ -44,12 +52,30 @@ def generate_students(request):
     return HttpResponse(output)
 
 
+def generate_now(request):
+    if request.method == 'POST':
+        # breakpoint()
+        form = GenerateNow(request.POST)
+        if form.is_valid():
+            count = form.cleaned_data['count']
+            studentList = []
+            for _ in range(count):
+                studentList.append(Student(first_name=f.first_name(), last_name=f.last_name(), age=random.randint(18, 100)))
+                Student.objects.bulk_create(studentList)
+
+            return redirect('list-students')
+    else:
+        form = GenerateNow()
+    return render(request, 'generate_now.html', {'form': form})
+
+
 def create_student(request):
     if request.method == 'POST':
         form = StudentFormFromModel(request.POST)
         if form.is_valid():
-            Student.objects.create(**form.cleaned_data)
-            return HttpResponseRedirect(reverse('list-students'))
+            student = Student.objects.create(**form.cleaned_data)
+            messages.success(request, 'One student created successfuly  {}'.format(student))
+            return redirect('list-students')
     else:
         form = StudentFormFromModel()
     return render(request, 'create_student.html', {'form': form})
@@ -72,3 +98,31 @@ def delete_student(request, student_id):
     badstudent = Student.objects.filter(id=student_id)
     badstudent.delete()
     return HttpResponseRedirect(reverse('list-students'))
+
+
+def generate(request):
+    if request.method == 'POST':
+        form = GenerateRandomUserForm(request.POST)
+        if form.is_valid():
+            total = form.cleaned_data['total']
+            st_generate.delay(total)
+            messages.success(request, 'We are generating your random users! Wait a moment and refresh this page.')
+            return redirect('list-students')
+    else:
+        form = GenerateRandomUserForm()
+    return render(request, 'generate.html', {'form': form})
+
+
+def ContactUs(request):
+    if request.method == 'POST':
+        form = ContactUS(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data['title']
+            message = form.cleaned_data['message']
+            email_from = form.cleaned_data['email_from']
+            send_email_to.delay(title, message, email_from)
+        return HttpResponse('Mail Sent')
+
+    else:
+        form = ContactUS()
+    return render(request, 'ContactUS.html', {'form': form})

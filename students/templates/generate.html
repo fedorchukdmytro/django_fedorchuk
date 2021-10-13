@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% block head %}
+    <title>Fedorchuk Django Project</title>
+    <style type="text/css">
+        body {
+            font-family: Geneva, Arial, Helvetica, sans-serif;
+        }
+    </style>
+    {% endblock %}
+</head>
+
+<body>
+    <div id="content">{% block content %}
+        <h1>Student generating form</h1>
+        <form action="{% url 'generate' %}" method="post">
+            {% csrf_token %}
+            <table>
+                {{form.as_table }}
+            </table>
+            <input type="submit" value="Submit">
+        </form>{% endblock %}</div>
+</body>
+
+</html>
