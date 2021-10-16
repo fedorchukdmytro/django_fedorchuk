@@ -31,13 +31,14 @@ class Student(models.Model):
     first_name = models.CharField(max_length=200, verbose_name='ИМЯ')
     last_name = models.CharField(max_length=200, verbose_name='ФАМИЛИЯ')
     age = models.IntegerField(default=18, verbose_name='ВОЗРАСТ')
-    phone = models.CharField(max_length=15, null=True, verbose_name='НОМЕР ТЕЛЕФОНА')
+    phone = models.CharField(max_length=15, null=True, verbose_name='НОМЕР ТЕЛЕФОНА', blank=True)
     group = models.ForeignKey(Group, on_delete=models.SET_NULL, verbose_name='СОСТОИТ В ГРУППЕ', null=True, blank=True)
-    status = models.CharField(
-        max_length=2,
-        verbose_name='ГОД ОБУЧЕНИЯ',
-        choices=YEAR_IN_SCHOOL_CHOICES,
-        default=FRESHMAN)
+    status = models.CharField(blank=True,
+                              max_length=2,
+                              verbose_name='ГОД ОБУЧЕНИЯ',
+                              choices=YEAR_IN_SCHOOL_CHOICES,
+                              default=FRESHMAN
+                              )
 
     def __str__(self):
         return f"{self.first_name} {self.last_name} {self.age} {self.phone} {self.status}"
