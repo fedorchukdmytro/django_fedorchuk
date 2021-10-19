@@ -1,1 +1,1 @@
-web: gunicorn django_fedorchuk.wsgi
+web: gunicorn django_fedorchuk.wsgi --log-file -
