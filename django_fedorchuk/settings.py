@@ -35,7 +35,7 @@ DEBUG = False
 ALLOWED_HOSTS = ['*']
 
 # CELERY_BROKER_URL = 'pyamqp://guest@localhost//'
-CELERY_BROKER_URL = os.getenv('CLOUDAMQP_URL', "pyamqp://guest@localhost//")
+CELERY_BROKER_URL = os.getenv('CLOUDAMQP_URL', "")
 
 CELERY_BEAT_SCHEDULE = {
     'beat_log': {
