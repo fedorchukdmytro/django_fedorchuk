@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
 
+from decouple import config
+
 from pathlib import Path
 
 from celery.schedules import crontab
@@ -19,14 +21,15 @@ from celery.schedules import crontab
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-r8p=+a)6$s1cc5**e#=!2l90z$1r!x*r$3gbgep(!ih&zm%-zf'
+SECRET_KEY = config("SECRET_KEY")
 # SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = config("DEBUG", cast=bool)
 
 
 
@@ -173,6 +176,9 @@ EMAIL_HOST_PASSWORD = 'RXNJtIz2H5GzeIBy'
 import dj_database_url
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
+
+
+
 
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
