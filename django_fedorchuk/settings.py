@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-r8p=+a)6$s1cc5**e#=!2l90z$1r!x*r$3gbgep(!ih&zm%-zf'
 # SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 
 
@@ -168,3 +168,10 @@ EMAIL_USE_TLS = False
 EMAIL_PORT = 465
 EMAIL_HOST_USER = 'fedorchuk.dmytro@ukr.net'
 EMAIL_HOST_PASSWORD = 'RXNJtIz2H5GzeIBy'
+
+import dj_database_url
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
+
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
