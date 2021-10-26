@@ -20,9 +20,10 @@
         <th>status</th>
         <th>Group</th>
         <th>Headed Group</th>
-
+        <th>EDIT</th>
+        <th>DELETE</th>
     </thead>
-    {% for student in students%}
+    {% for student in student_list%}
     <tr>
         <th>{{student.id}}</th>
         <th>{{student.last_name}}</th>
@@ -32,12 +33,13 @@
         <th>{{student.status}}</th>
         <th>{% if student.group %}{{ student.group.descipline }}{% endif %}</th>
         <th>{% if student.submissive_group %}{{student.submissive_group.descipline}}{% endif %} </th>
+        <th> <a href="{% url 'edit-student' student.id %}">Edit</a></th>
+        <th><a href="{% url 'delete-student' student.id%}">DELETE</a></th>
+
     </tr>
     {% endfor %}
 
 </table>
-
-
-{% if students.has_previous %}
-<a href="{% url 'list-students' %}?page={{students.previous_page_number}}">Previous Page</a> {% endif %} {% if students.has_next %}
-<a href="{% url 'list-students' %}?page={{students.next_page_number}}">Next Page</a> {% endif %} {% endblock %}
+{% if student_list.has_previous %}
+<a href="{% url 'list-students' %}?page={{student_list.previous_page_number}}">Previous Page</a> {% endif %} {% if student_list.has_next %}
+<a href="{% url 'list-students' %}?page={{student_list.next_page_number}}">Next Page</a> {% endif %} {% endblock %}

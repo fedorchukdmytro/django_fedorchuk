@@ -2,9 +2,9 @@
 
 from django.urls import path
 
-from .views import list_exchange
+from .views import CurrencyListView
 
 
 urlpatterns = [
-    path('currency', list_exchange, name='exchange')
+    path('currency', CurrencyListView.as_view(), name='exchange')
 ]

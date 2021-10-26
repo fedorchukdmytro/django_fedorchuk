@@ -24,3 +24,6 @@ urlpatterns = [
     path('', include('group.urls')),
     path('admin/', admin.site.urls),
 ]
+
+handler404 = 'students.views.handler404'
+handler500 = 'students.views.handler500'

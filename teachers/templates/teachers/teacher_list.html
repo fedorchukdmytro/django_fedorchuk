@@ -17,7 +17,7 @@
         <th>Age</th>
         <th>Headed Group</th>
     </tr>
-    {% for teacher in teachers%}
+    {% for teacher in object_list %}
     <tr>
         <th>{{teacher.id|safe}}</th>
         <th>{{teacher.last_name|safe}}</th>
@@ -30,6 +30,6 @@
     {% endfor %}
 
 </table>
-{% if teachers.has_previous %}
-<a href="{% url 'list-teachers' %}?page={{teachers.previous_page_number}}">Previous Page</a> {% endif %} {% if teachers.has_next %}
-<a href="{% url 'list-teachers' %}?page={{teachers.next_page_number}}">Next Page</a>{% endif %}{% endblock %}
+{% if page_obj.has_previous %}
+<a href="{% url 'list-teachers' %}?page={{page_obj.previous_page_number}}">Previous Page</a> {% endif %} {% if page_obj.has_next %}
+<a href="{% url 'list-teachers' %}?page={{page_obj.next_page_number}}">Next Page</a>{% endif %}{% endblock %}
