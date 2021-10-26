@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+
 from pathlib import Path
 
 from celery.schedules import crontab
@@ -68,7 +69,7 @@ INSTALLED_APPS = [
     'teachers.apps.TeachersConfig',
     'group.apps.GroupConfig',
     'currency.apps.CurrencyConfig',
-    'django_extensions',
+    'django_extensions'
 ]
 
 MIDDLEWARE = [
