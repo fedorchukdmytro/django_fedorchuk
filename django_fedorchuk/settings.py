@@ -37,29 +37,29 @@ ALLOWED_HOSTS = ['*']
 # CELERY_BROKER_URL = 'pyamqp://guest@localhost//'
 CELERY_BROKER_URL = os.getenv('CLOUDAMQP_URL', "")
 
-CELERY_BEAT_SCHEDULE = {
-    'beat_log': {
-        'task': 'students.tasks.beat_log',
-        'schedule': crontab(15, 12),
-    },
-    'currecy': {
-        'task': 'currency.tasks.get_currency_rates',
-        'schedule': 300,
-    },
-    'currecy_mono': {
-        'task': 'currency.tasks.get_currency_mono',
-        'schedule': 300,
-    },
-    'currecy_national': {
-        'task': 'currency.tasks.get_currency_national',
-        'schedule': 300,
-    },
+# CELERY_BEAT_SCHEDULE = {
+#     'beat_log': {
+#         'task': 'students.tasks.beat_log',
+#         'schedule': crontab(15, 12),
+#     },
+#     'currecy': {
+#         'task': 'currency.tasks.get_currency_rates',
+#         'schedule': 300,
+#     },
+#     'currecy_mono': {
+#         'task': 'currency.tasks.get_currency_mono',
+#         'schedule': 300,
+#     },
+#     'currecy_national': {
+#         'task': 'currency.tasks.get_currency_national',
+#         'schedule': 300,
+#     },
     # 'curr_nah': {
     #     'task': 'currency.tasks.cur_nah',
     #     'schedule': crontab(15, 12)
     # }
 
-}
+# }
 # Application definition
 
 INSTALLED_APPS = [
