@@ -90,7 +90,7 @@ class Student(models.Model):
 
 class Logger(models.Model):
     method = models.CharField(max_length=6)
-    path = models.CharField(max_length=20)
+    path = models.CharField(max_length=30)
     execution_time = models.DecimalField(max_digits=15, decimal_places=10)
     created = models.DateTimeField(auto_now=True)
 
