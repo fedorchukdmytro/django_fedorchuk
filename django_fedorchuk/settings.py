@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config("SECRET_KEY", 'django-insecure-r8p=+a)6$s1cc5**e#=!2l90z$1r!x*r$3gbgep(!ih&zm%-zf')
+SECRET_KEY = config("SECRET_KEY", '')
 # SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", default=False, cast=bool)
@@ -73,7 +73,9 @@ INSTALLED_APPS = [
     'teachers.apps.TeachersConfig',
     'group.apps.GroupConfig',
     'currency.apps.CurrencyConfig',
-    'django_extensions'
+    'users.apps.UsersConfig',
+    'django_extensions',
+    'crispy_forms'
 ]
 
 MIDDLEWARE = [
@@ -85,7 +87,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'students.middleware.LoggerMiddleware'
+    'students.middleware.LoggerMiddleware',
 ]
 
 ROOT_URLCONF = 'django_fedorchuk.urls'
@@ -182,3 +184,5 @@ DATABASES['default'].update(db_from_env)
 
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
+
+CRISPY_TEMPLATE_PACK = 'uni_form'
