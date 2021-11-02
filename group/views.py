@@ -1,6 +1,6 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
-from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import GroupFormFromModel
 from .models import Group

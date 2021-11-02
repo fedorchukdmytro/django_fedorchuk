@@ -10,16 +10,16 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
-
-from decouple import config
-
 from pathlib import Path
 
 from celery.schedules import crontab
+
+from decouple import config
+
+
 # from celery import Celery
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 
 # Quick-start development settings - unsuitable for production
@@ -37,29 +37,28 @@ ALLOWED_HOSTS = ['*']
 # CELERY_BROKER_URL = 'pyamqp://guest@localhost//'
 CELERY_BROKER_URL = os.getenv('CLOUDAMQP_URL', "")
 
-# CELERY_BEAT_SCHEDULE = {
-#     'beat_log': {
-#         'task': 'students.tasks.beat_log',
-#         'schedule': crontab(15, 12),
-#     },
-#     'currecy': {
-#         'task': 'currency.tasks.get_currency_rates',
-#         'schedule': 300,
-#     },
-#     'currecy_mono': {
-#         'task': 'currency.tasks.get_currency_mono',
-#         'schedule': 300,
-#     },
-#     'currecy_national': {
-#         'task': 'currency.tasks.get_currency_national',
-#         'schedule': 300,
-#     },
-    # 'curr_nah': {
-    #     'task': 'currency.tasks.cur_nah',
-    #     'schedule': crontab(15, 12)
-    # }
-
-# }
+CELERY_BEAT_SCHEDULE = {
+    'beat_log': {
+        'task': 'students.tasks.beat_log',
+        'schedule': crontab(15, 12),
+    },
+    'currecy': {
+        'task': 'currency.tasks.get_currency_rates',
+        'schedule': crontab(15, 12),
+    },
+    'currecy_mono': {
+        'task': 'currency.tasks.get_currency_mono',
+        'schedule': crontab(15, 12),
+    },
+    'currecy_national': {
+        'task': 'currency.tasks.get_currency_national',
+        'schedule': crontab(15, 12),
+    },
+    'curr_nah': {
+        'task': 'currency.tasks.cur_nah',
+        'schedule': crontab(15, 12)
+    }
+                    }
 # Application definition
 
 INSTALLED_APPS = [
@@ -172,14 +171,11 @@ EMAIL_USE_SSL = True
 EMAIL_USE_TLS = False
 EMAIL_PORT = 465
 EMAIL_HOST_USER = 'fedorchuk.dmytro@ukr.net'
-EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", '')    
-import dj_database_url
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", '')
 
+import dj_database_url # noqa
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
-
-
-
 
 # SESSION_COOKIE_SECURE = True
 # CSRF_COOKIE_SECURE = True

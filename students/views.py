@@ -1,8 +1,6 @@
 from django import forms
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import PasswordChangeView
-from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.paginator import Paginator
 from django.http import HttpResponse, HttpResponseRedirect
@@ -111,7 +109,7 @@ class ContactUs(LoginRequiredMixin, FormView):
         return HttpResponse('Mail Sent')
 
 
-def check(request):
+def check():
     pass
 
 
