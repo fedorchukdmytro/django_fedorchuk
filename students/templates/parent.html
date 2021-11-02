@@ -43,7 +43,7 @@
                         <a class="nav-item nav-link" href="{% url 'profile' %}">{{user.username}}</a>
                         <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
                         <span class="nav-item"> Enjoy using my app {{user.username}}</span> {% else %}
-                        <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+                        <a href="{% url 'login' %}">Login</a><span>    </span>
                         <a href="{% url 'register' %}">Sign UP</a><span>    </span>
                         <a href="/password_reset">Forgot password?</a> {% endif %}
                     </div>

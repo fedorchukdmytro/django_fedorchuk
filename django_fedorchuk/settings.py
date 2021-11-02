@@ -172,8 +172,7 @@ EMAIL_USE_SSL = True
 EMAIL_USE_TLS = False
 EMAIL_PORT = 465
 EMAIL_HOST_USER = 'fedorchuk.dmytro@ukr.net'
-EMAIL_HOST_PASSWORD = 'tXWhKX3xziALUbV4'
-
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", '')    
 import dj_database_url
 
 db_from_env = dj_database_url.config(conn_max_age=500)
