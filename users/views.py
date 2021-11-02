@@ -1,19 +1,19 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
 
+from .forms import MyUserCreateForm
 
 def registration(request):
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
+        form = MyUserCreateForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data['username']
-            messages.success(request, f'Account created for {username}!')
+            messages.success(request, f'Your account has been created! You are now able to login')
             form.save()
-            return redirect('index')
+            return redirect('login')
     else:    
-        form = UserCreationForm()
+        form = MyUserCreateForm()
     return render(request, 'registration.html', {'form':form})
 
 

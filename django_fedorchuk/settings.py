@@ -185,4 +185,6 @@ DATABASES['default'].update(db_from_env)
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
-CRISPY_TEMPLATE_PACK = 'uni_form'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+LOGIN_REDIRECT_URL = 'index'
