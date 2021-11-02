@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import PasswordChangeView
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.paginator import Paginator
 from django.http import HttpResponse, HttpResponseRedirect
@@ -29,7 +31,7 @@ class StudentListView(ListView):
     model = Student
 
 
-class GenerateStudent(View):
+class GenerateStudent(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
         studentadd = Student._gen()
@@ -109,7 +111,7 @@ class ContactUs(LoginRequiredMixin, FormView):
         return HttpResponse('Mail Sent')
 
 
-def check():
+def check(request):
     pass
 
 

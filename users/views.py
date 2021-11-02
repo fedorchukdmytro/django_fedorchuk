@@ -3,6 +3,8 @@ import socket
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
+from django.contrib.auth.forms import PasswordChangeForm
 
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail, BadHeaderError
@@ -15,7 +17,14 @@ from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 from .forms import MyUserCreateForm
-from django.views.decorators.csrf import csrf_protect
+
+
+class PassChangeView(PasswordChangeView):
+    template_name = 'password/password_change_form.html'
+    form = PasswordChangeForm
+
+class PassChangeDone(PasswordChangeDoneView):
+	template_name = 'password/password_change_done.html'
 
 def registration(request):
     if request.method == "POST":
@@ -33,7 +42,7 @@ def registration(request):
 def profile(request):
     return render(request, 'profile.html')
 
-@csrf_protect
+
 def password_reset_request(request):
 	if request.method == "POST":
 		if socket.gethostname().endswith(".local"):
@@ -64,5 +73,6 @@ def password_reset_request(request):
 					except BadHeaderError:
 						return HttpResponse('Invalid header found.')
 					return redirect ("/password_reset/done/")
+			messages.error(request, 'An invalid email was entered')
 	password_reset_form = PasswordResetForm()
 	return render(request=request, template_name="password/password_reset.html", context={"password_reset_form":password_reset_form})
