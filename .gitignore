@@ -141,3 +141,5 @@ cython_debug/
 
 travis.yml
 travis.yml
+
+/static
