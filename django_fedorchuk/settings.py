@@ -172,7 +172,7 @@ EMAIL_USE_SSL = True
 EMAIL_USE_TLS = False
 EMAIL_PORT = 465
 EMAIL_HOST_USER = 'fedorchuk.dmytro@ukr.net'
-EMAIL_HOST_PASSWORD = 'RXNJtIz2H5GzeIBy'
+EMAIL_HOST_PASSWORD = 'tXWhKX3xziALUbV4'
 
 import dj_database_url
 
@@ -188,3 +188,5 @@ CSRF_COOKIE_SECURE = True
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = 'index'
+
+LOGIN_URL = 'login'
