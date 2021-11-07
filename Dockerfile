@@ -1,28 +1,21 @@
-FROM python:3.9.7-slim-buster
+# pull the official base image
+FROM python:3.8.3-alpine
 
-ARG DJANGO_SECRET_KEY
-ENV DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY:-AI4HUDpFhmJQWMCYsV3JM5np3hVRCeQ3}
-
-WORKDIR /app
+# set work directory
+WORKDIR /usr/src/app
 
 # set environment variables
-
-# PYTHONDONTWRITEBYTECODE
-# If this is set to a non-empty string, Python won’t try to write .pyc files on the import of source modules.
-# This is equivalent to specifying the -B option.
 ENV PYTHONDONTWRITEBYTECODE 1
-
-# PYTHONUNBUFFERED
-# If this is set to a non-empty string it is equivalent to specifying the -u option.
 ENV PYTHONUNBUFFERED 1
 
-COPY . .
+# install dependencies
+RUN pip install --upgrade pip 
+COPY ./requirements.txt /usr/src/app
+RUN pip install -r requirements.txt
 
-RUN pip3 install --upgrade pip
-RUN pip3 install -r requirements.txt
-RUN mkdir db
-VOLUME db-vol
-RUN python3 manage.py migrate
+# copy project
+COPY . /usr/src/app
 
-# CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
-ENTRYPOINT ["python3", "manage.py"]
+EXPOSE 8000
+
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
