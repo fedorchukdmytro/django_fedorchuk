@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.paginator import Paginator
 from django.http import HttpResponse, HttpResponseRedirect
@@ -28,7 +29,7 @@ class StudentListView(ListView):
     model = Student
 
 
-class GenerateStudent(View):
+class GenerateStudent(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
         studentadd = Student._gen()
@@ -36,7 +37,7 @@ class GenerateStudent(View):
         return HttpResponseRedirect(reverse('list-students'))
 
 
-class GenerateStudents(View):
+class GenerateStudents(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         class CountForm(forms.Form):
             count = forms.IntegerField(min_value=1, max_value=100)
@@ -53,7 +54,7 @@ class GenerateStudents(View):
         return HttpResponse(output)
 
 
-class GenerateNow(FormView):
+class GenerateNow(LoginRequiredMixin, FormView):
     template_name = 'students/generate_now.html'
     form_class = GenerateNow
 
@@ -64,7 +65,7 @@ class GenerateNow(FormView):
         return redirect('list-students')
 
 
-class StudentCreateView(SuccessMessageMixin, CreateView):
+class StudentCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Student
     form_class = StudentFormFromModel
     success_url = reverse_lazy('list-students')
@@ -72,20 +73,20 @@ class StudentCreateView(SuccessMessageMixin, CreateView):
     template_name = 'students/create_student.html'
 
 
-class UpdateStudentView(UpdateView):
+class UpdateStudentView(LoginRequiredMixin, UpdateView):
     model = Student
     form_class = StudentFormFromModel
     success_url = reverse_lazy('list-students')
     template_name = 'students/edit_student.html'
 
 
-class StudentDeleteView(DeleteView):
+class StudentDeleteView(LoginRequiredMixin, DeleteView):
     model = Student
     success_url = reverse_lazy('list-students')
     template_name = 'students/delete.html'
 
 
-class GenerateWithCelery(FormView):
+class GenerateWithCelery(LoginRequiredMixin, FormView):
     template_name = 'students/generate.html'
     form_class = GenerateRandomUserForm
 
@@ -96,7 +97,7 @@ class GenerateWithCelery(FormView):
         return redirect('list-students')
 
 
-class ContactUs(FormView):
+class ContactUs(LoginRequiredMixin, FormView):
    template_name = 'students/ContactUS.html'
    form_class = ContactUS
 

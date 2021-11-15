@@ -9,11 +9,14 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
-
+import os
 from pathlib import Path
 
 from celery.schedules import crontab
+
+from decouple import config
+
+
 # from celery import Celery
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,15 +26,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-r8p=+a)6$s1cc5**e#=!2l90z$1r!x*r$3gbgep(!ih&zm%-zf'
-
+SECRET_KEY = config("SECRET_KEY", 'django-insecure-r8p=+a)6$s1cc5**e#=!2l90z$1r!x*r$3gbgep(!ih&zm%-zf')
+# SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = config("DEBUG", default=False, cast=bool)
+
 
 ALLOWED_HOSTS = ['*']
 
-CELERY_BROKER_URL = 'pyamqp://guest@localhost//'
-
+# CELERY_BROKER_URL = 'pyamqp://guest@localhost//'
+CELERY_BROKER_URL = os.getenv('CLOUDAMQP_URL', "")
 
 CELERY_BEAT_SCHEDULE = {
     'beat_log': {
@@ -40,22 +44,21 @@ CELERY_BEAT_SCHEDULE = {
     },
     'currecy': {
         'task': 'currency.tasks.get_currency_rates',
-        'schedule': 300,
+        'schedule': crontab(15, 12),
     },
     'currecy_mono': {
         'task': 'currency.tasks.get_currency_mono',
-        'schedule': 300,
+        'schedule': crontab(15, 12),
     },
     'currecy_national': {
         'task': 'currency.tasks.get_currency_national',
-        'schedule': 300,
+        'schedule': crontab(15, 12),
     },
-    # 'curr_nah': {
-    #     'task': 'currency.tasks.cur_nah',
-    #     'schedule': crontab(15, 12)
-    # }
-
-}
+    'curr_nah': {
+        'task': 'currency.tasks.cur_nah',
+        'schedule': crontab(15, 12)
+    }
+                    }
 # Application definition
 
 INSTALLED_APPS = [
@@ -69,18 +72,21 @@ INSTALLED_APPS = [
     'teachers.apps.TeachersConfig',
     'group.apps.GroupConfig',
     'currency.apps.CurrencyConfig',
-    'django_extensions'
+    'users.apps.UsersConfig',
+    'django_extensions',
+    'crispy_forms'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'students.middleware.LoggerMiddleware'
+    'students.middleware.LoggerMiddleware',
 ]
 
 ROOT_URLCONF = 'django_fedorchuk.urls'
@@ -151,6 +157,7 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
 # Default primary key field type
@@ -164,4 +171,17 @@ EMAIL_USE_SSL = True
 EMAIL_USE_TLS = False
 EMAIL_PORT = 465
 EMAIL_HOST_USER = 'fedorchuk.dmytro@ukr.net'
-EMAIL_HOST_PASSWORD = 'RXNJtIz2H5GzeIBy'
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", '')
+
+import dj_database_url # noqa
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
+
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+LOGIN_REDIRECT_URL = 'index'
+
+LOGIN_URL = 'login'

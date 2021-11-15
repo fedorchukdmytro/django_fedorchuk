@@ -1,6 +1,7 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.paginator import Paginator
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
 from .froms import TeacherFormFromModel
@@ -16,7 +17,7 @@ class TeacherList(ListView):
         return query
 
 
-class TeacherCreateView(SuccessMessageMixin, CreateView):
+class TeacherCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Teacher
     form_class = TeacherFormFromModel
     success_url = reverse_lazy('list-teachers')
@@ -24,12 +25,12 @@ class TeacherCreateView(SuccessMessageMixin, CreateView):
     template_name = 'teachers/create_teacher.html'
 
 
-class EditTeacher(UpdateView):
+class EditTeacher(LoginRequiredMixin, UpdateView):
     model = Teacher
     form_class = TeacherFormFromModel
     success_url = reverse_lazy('list-teachers')
 
 
-class DeleteTeacher(DeleteView):
+class DeleteTeacher(LoginRequiredMixin, DeleteView):
     model = Teacher
     success_url = reverse_lazy('list-teachers')

@@ -4,12 +4,14 @@
         background-color: aquamarine;
     }
 </style>
-{%endblock%} {% block content %}
+{%endblock%} {% block content %} {% load crispy_forms_tags %}
+
+</form>
 <h1>Student creation form</h1>
-<form action="{% url 'create-student' %}" method="post">
+<form action="{% url 'create-student' %}" pl='200' class="uniForm" method="post">
     {% csrf_token %}
     <table>
-        {{form.as_table }}
+        {{form|crispy }}
     </table>
     <input type="submit" value="Submit">
 </form>

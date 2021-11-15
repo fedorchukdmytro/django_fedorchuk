@@ -1,26 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    {% block head %}
-    <title>Fedorchuk Django Project</title>
-    <style type="text/css">
-        body {
-            font-family: Geneva, Arial, Helvetica, sans-serif;
-        }
-    </style>
-    {% endblock %}
-</head>
+{% extends 'parent.html' %}
 
 <body>
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
-            {% endfor %}
-    </ul>
-    {% endif %}
+
     <div id="content">{% block content %}
+
         <a href="{% url 'list-students' %}">LIST STUDENTS</a></br>
         <a href="{% url 'create-student' %}">CREATE Student</a></br>
 
