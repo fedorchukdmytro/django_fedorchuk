@@ -34,8 +34,9 @@ DEBUG = config("DEBUG", default=False, cast=bool)
 
 ALLOWED_HOSTS = ['*']
 
-# CELERY_BROKER_URL = 'pyamqp://guest@localhost//'
-CELERY_BROKER_URL = os.getenv('CLOUDAMQP_URL', "")
+CELERY_BROKER_URL = 'pyamqp://rabbitmq:5672//'
+# CELERY_BROKER_URL = os.getenv('CLOUDAMQP_URL', "")
+# CELERY_BROKER_URL = "redis://localhost:6379"
 
 CELERY_BEAT_SCHEDULE = {
     'beat_log': {
@@ -44,7 +45,7 @@ CELERY_BEAT_SCHEDULE = {
     },
     'currecy': {
         'task': 'currency.tasks.get_currency_rates',
-        'schedule': crontab(15, 12),
+        'schedule': 300,
     },
     'currecy_mono': {
         'task': 'currency.tasks.get_currency_mono',
@@ -52,7 +53,7 @@ CELERY_BEAT_SCHEDULE = {
     },
     'currecy_national': {
         'task': 'currency.tasks.get_currency_national',
-        'schedule': crontab(15, 12),
+        'schedule': 300,
     },
     'curr_nah': {
         'task': 'currency.tasks.cur_nah',
@@ -113,14 +114,22 @@ WSGI_APPLICATION = 'django_fedorchuk.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': join(BASE_DIR, 'db/your_db_name.db'),
+#     }
+# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'db',
+        'PORT': 5432,
     }
 }
-
-
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 

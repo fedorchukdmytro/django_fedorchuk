@@ -1,0 +1,51 @@
+version: "3.9"
+   
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+  web:
+    build: .
+    restart: always
+    command: sh -c "python manage.py migrate &&  python manage.py runserver 0.0.0.0:8000"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+  
+  rabbitmq:
+    image: rabbitmq:latest
+    
+    ports:
+        - "5672:5672"
+    
+    restart: on-failure
+  
+
+  celery-worker:
+    build: .
+    restart: on-failure
+    command: 'celery -A django_fedorchuk worker -l INFO'
+   
+    depends_on:
+      - web
+      - rabbitmq
+      - db
+
+
+  celery-beat:
+    build: .
+    restart: on-failure
+    command: 'celery -A django_fedorchuk beat -l INFO'
+    
+    depends_on:
+      - web
+      - rabbitmq
+      - db
+
+
